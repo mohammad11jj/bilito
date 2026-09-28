@@ -1,92 +1,78 @@
 import { useState } from 'react';
-import { Select } from '../shared/components/ui/Select';
-
-const genderOptions = [
-  { value: 'male', label: 'مرد' },
-  { value: 'female', label: 'زن' },
-];
-
-const classOptions = [
-  { value: 'economy', label: 'اکونومی' },
-  { value: 'business', label: 'بیزینس' },
-  { value: 'first', label: 'فرست کلاس' },
-];
-
-const cityOptions = [
-  { value: 'tehran', label: 'تهران' },
-  { value: 'mashhad', label: 'مشهد' },
-  { value: 'shiraz', label: 'شیراز' },
-  { value: 'isfahan', label: 'اصفهان', disabled: true },
-];
+import { Modal } from '../shared/components/ui/Modal';
+import { Button } from '../shared/components/ui/Button';
 
 function App() {
-  const [gender, setGender] = useState('');
-  const [classType, setClassType] = useState('economy');
+  const [modal1, setModal1] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-1 p-8">
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Select
+          تست کامپوننت Modal
         </h1>
 
-        <div className="bg-white p-6 rounded-md shadow-card space-y-5">
-          {/* ساده با placeholder */}
-          <Select
-            placeholder="انتخاب کنید"
-            options={cityOptions}
-          />
-
-          {/* با Label */}
-          <Select
-            label="جنسیت"
-            placeholder="جنسیت خود را انتخاب کنید"
-            options={genderOptions}
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          />
-
-          {/* اجباری */}
-          <Select
-            label="کلاس پرواز"
-            placeholder="کلاس را انتخاب کنید"
-            options={classOptions}
-            required
-          />
-
-          {/* با Helper Text */}
-          <Select
-            label="مقصد"
-            placeholder="مقصد خود را انتخاب کنید"
-            options={cityOptions}
-            helperText="برای جستجوی سریع‌تر، مقصد را انتخاب کنید"
-          />
-
-          {/* حالت خطا */}
-          <Select
-            label="شهر مبدا"
-            placeholder="شهر مبدا را انتخاب کنید"
-            options={cityOptions}
-            error
-            errorMessage="لطفاً شهر مبدا را انتخاب کنید"
-          />
-
-          {/* غیرفعال */}
-          <Select
-            label="کشور"
-            options={[{ value: 'iran', label: 'ایران' }]}
-            disabled
-          />
-
-          {/* مقدار پیش‌فرض */}
-          <Select
-            label="کلاس انتخابی"
-            options={classOptions}
-            value={classType}
-            onChange={(e) => setClassType(e.target.value)}
-          />
+        <div className="bg-white p-6 rounded-md shadow-card space-y-3">
+          <Button onClick={() => setModal1(true)}>باز کردن Modal ساده</Button>
+          <Button variant="outline" onClick={() => setModal2(true)}>
+            Modal با Footer
+          </Button>
+          <Button variant="secondary" onClick={() => setModal3(true)}>
+            Modal بزرگ
+          </Button>
         </div>
       </div>
+
+      {/* Modal ۱: ساده */}
+      <Modal
+        isOpen={modal1}
+        onClose={() => setModal1(false)}
+        title="Modal ساده"
+      >
+        <p className="text-gray-7 text-start">
+          این یک Modal ساده است. می‌تونی با کلیک بیرون یا دکمه Escape ببندیش.
+        </p>
+      </Modal>
+
+      {/* Modal ۲: با Footer */}
+      <Modal
+        isOpen={modal2}
+        onClose={() => setModal2(false)}
+        title="تایید عملیات"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setModal2(false)}>
+              انصراف
+            </Button>
+            <Button onClick={() => setModal2(false)}>تایید</Button>
+          </>
+        }
+      >
+        <p className="text-gray-7 text-start">
+          آیا از انجام این عملیات مطمئن هستید؟ این عملیات قابل بازگشت نیست.
+        </p>
+      </Modal>
+
+      {/* Modal ۳: بزرگ با محتوای طولانی */}
+      <Modal
+        isOpen={modal3}
+        onClose={() => setModal3(false)}
+        title="قوانین و مقررات"
+        size="lg"
+        footer={<Button onClick={() => setModal3(false)}>متوجه شدم</Button>}
+      >
+        <div className="space-y-4 text-start text-gray-7 text-sm leading-7">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <p key={i}>
+              {i + 1}. این یک پاراگراف تستی برای بررسی اسکرول داخلی Modal است.
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+              استفاده از طراحان گرافیک است.
+            </p>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 }
