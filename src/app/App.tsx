@@ -1,76 +1,79 @@
-import { Info, Clock } from 'lucide-react';
-import { Alert } from '../shared/components/ui/Alert';
-import { Button } from '../shared/components/ui/Button';
+import { useState } from 'react';
+import { Pagination } from '../shared/components/ui/Pagination';
 
 function App() {
+  const [page1, setPage1] = useState(1);
+  const [page2, setPage2] = useState(5);
+  const [page3, setPage3] = useState(10);
+  const [page4, setPage4] = useState(50);
+
   return (
     <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-2xl mx-auto space-y-4">
+      <div className="max-w-3xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Alert
+          تست کامپوننت Pagination
         </h1>
 
-        {/* Info */}
-        <Alert variant="info">
-          اطلاعات زیر را دقیقاً مطابق با مقادیر درج شده در پاسپورت وارد نمایید.
-        </Alert>
+        <div className="bg-white p-6 rounded-md shadow-card space-y-6">
+          {/* ۵ صفحه - همه نشون داده می‌شن */}
+          <div className="space-y-2">
+            <p className="text-sm text-gray-5 text-start">
+              ۵ صفحه (همه شماره‌ها):
+            </p>
+            <Pagination
+              currentPage={page1}
+              totalPages={5}
+              onPageChange={setPage1}
+            />
+            <p className="text-xs text-gray-6 text-center">
+              صفحه فعلی: {page1}
+            </p>
+          </div>
 
-        {/* Success */}
-        <Alert variant="success" title="پرداخت شما با موفقیت انجام شد">
-          بلیط شما صادر شد و به ایمیل شما ارسال گردید. از پنل کاربری می‌توانید
-          بلیط را دانلود کنید.
-        </Alert>
+          {/* ۱۰ صفحه - صفحه ۵ */}
+          <div className="space-y-2">
+            <p className="text-sm text-gray-5 text-start">
+              ۱۰ صفحه (صفحه جاری ۵):
+            </p>
+            <Pagination
+              currentPage={page2}
+              totalPages={10}
+              onPageChange={setPage2}
+            />
+            <p className="text-xs text-gray-6 text-center">
+              صفحه فعلی: {page2}
+            </p>
+          </div>
 
-        {/* Warning */}
-        <Alert variant="warning" title="اطلاعات حساب کاربری شما کامل نیست">
-          برای ادامه فرآیند خرید، لطفاً اطلاعات پروفایل خود را تکمیل کنید.
-        </Alert>
+          {/* ۱۰ صفحه - صفحه آخر */}
+          <div className="space-y-2">
+            <p className="text-sm text-gray-5 text-start">
+              ۱۰ صفحه (صفحه جاری ۱۰ - آخرین):
+            </p>
+            <Pagination
+              currentPage={page3}
+              totalPages={10}
+              onPageChange={setPage3}
+            />
+            <p className="text-xs text-gray-6 text-center">
+              صفحه فعلی: {page3}
+            </p>
+          </div>
 
-        {/* Error */}
-        <Alert variant="error" title="پرداخت شما ناموفق بود">
-          اگر هزینه بلیط از حساب بانکی شما کسر شده، طی ۷۲ ساعت به حساب شما
-          بازخواهد گشت. شماره پیگیری: ۱۲۳۴۵۶۷۸۹۱۲۳
-        </Alert>
-
-        {/* با آیکون سفارشی */}
-        <Alert variant="info" icon={<Clock className="w-5 h-5" />}>
-          پرواز شماره ۱۶۵ از استانبول به دبی در تاریخ ۶ شهریور ۱۴۰۲ ساعت
-          ۲۱:۵۰ به مدت ۲ ساعت تاخیر دارد.
-        </Alert>
-
-        {/* با دکمه بستن */}
-        <Alert variant="warning" onClose={() => alert('Alert بسته شد')}>
-          این یک Alert با دکمه بستن است. روی ضربدر کلیک کنید.
-        </Alert>
-
-        {/* با Action */}
-        <Alert
-          variant="info"
-          title="اطلاعات حساب کاربری"
-          action={
-            <Button size="sm" variant="outline">
-              تکمیل اطلاعات
-            </Button>
-          }
-        >
-          اطلاعات پروفایل شما ناقص است. لطفاً آن را تکمیل کنید.
-        </Alert>
-
-        {/* بدون آیکون */}
-        <Alert variant="success" showIcon={false}>
-          این Alert بدون آیکون است.
-        </Alert>
-
-        {/* نمونه واقعی از پروژه - پیام تاخیر پرواز */}
-        <div className="bg-tint-1 p-4 rounded-md">
-          <Alert
-            variant="info"
-            className="bg-white/60"
-            onClose={() => alert('بسته شد')}
-          >
-            پرواز شماره ۱۶۵ از استانبول به دبی در تاریخ ۶ شهریور ۱۴۰۲ در ساعت
-            ۲۱:۵۰ به مدت ۲ ساعت تاخیر دارد.
-          </Alert>
+          {/* ۱۰۰ صفحه */}
+          <div className="space-y-2">
+            <p className="text-sm text-gray-5 text-start">
+              ۱۰۰ صفحه (صفحه جاری ۵۰):
+            </p>
+            <Pagination
+              currentPage={page4}
+              totalPages={100}
+              onPageChange={setPage4}
+            />
+            <p className="text-xs text-gray-6 text-center">
+              صفحه فعلی: {page4}
+            </p>
+          </div>
         </div>
       </div>
     </div>
