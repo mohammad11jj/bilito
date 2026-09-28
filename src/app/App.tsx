@@ -1,51 +1,45 @@
-import { Textarea } from '../shared/components/ui/Textarea';
+import { useState } from 'react';
+import { Checkbox } from '../shared/components/ui/Checkbox';
 
 function App() {
+  const [checked, setChecked] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-1 p-8">
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary mb-6 text-start">
-          تست کامپوننت Textarea
+          تست کامپوننت Checkbox
         </h1>
 
         <div className="bg-white p-6 rounded-md shadow-card space-y-5">
-          {/* ساده */}
-          <Textarea placeholder="پیام خود را وارد کنید..." />
+          {/* ساده بدون label */}
+          <Checkbox />
 
-          {/* با Label */}
-          <Textarea
-            label="توضیحات"
-            placeholder="توضیحات خود را وارد کنید..."
+          {/* با label */}
+          <Checkbox label="قوانین و مقررات را می‌پذیرم" />
+
+          {/* کنترل‌شده */}
+          <Checkbox
+            label="با تاییدیه ایمیلی موافقم"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
 
           {/* اجباری */}
-          <Textarea
-            label="دلیل سفر"
-            placeholder="دلیل سفر خود را بنویسید..."
-            required
-          />
-
-          {/* با Helper Text */}
-          <Textarea
-            label="آدرس"
-            placeholder="آدرس کامل خود را وارد کنید..."
-            helperText="آدرس دقیق برای ارسال بلیط"
-          />
+          <Checkbox label="اطلاعات را مطالعه کرده‌ام" required />
 
           {/* حالت خطا */}
-          <Textarea
-            label="پیام"
-            placeholder="پیام خود را بنویسید..."
+          <Checkbox
+            label="پذیرش قوانین"
             error
-            errorMessage="پیام باید حداقل ۱۰ کاراکتر باشد"
+            errorMessage="برای ادامه باید قوانین را بپذیرید"
           />
 
           {/* غیرفعال */}
-          <Textarea
-            label="یادداشت"
-            value="این متن قابل ویرایش نیست"
-            disabled
-          />
+          <Checkbox label="این گزینه فعلاً غیرفعال است" disabled />
+
+          {/* غیرفعال و تیک‌خورده */}
+          <Checkbox label="غیرفعال اما تیک‌خورده" disabled defaultChecked />
         </div>
       </div>
     </div>
