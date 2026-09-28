@@ -1,74 +1,67 @@
-import { Plane, Search, Trash2, Plus } from 'lucide-react';
-import { Button } from '../shared/components/ui/Button';
+import { Mail, Lock, Search } from 'lucide-react';
+import { Input } from '../shared/components/ui/Input';
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold text-primary mb-6">
-          تست کامپوننت Button
+      <div className="max-w-md mx-auto space-y-6">
+        <h1 className="text-2xl font-bold text-primary mb-6 text-start">
+          تست کامپوننت Input
         </h1>
 
-        {/* Variants */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-xl font-bold mb-4">Variantها</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="primary">دکمه اصلی</Button>
-            <Button variant="secondary">دکمه ثانویه</Button>
-            <Button variant="outline">دکمه با حاشیه</Button>
-            <Button variant="ghost">دکمه شبح</Button>
-            <Button variant="danger">حذف</Button>
-          </div>
-        </section>
+        <div className="bg-white p-6 rounded-md shadow-card space-y-5">
+          {/* ساده */}
+          <Input placeholder="نام خود را وارد کنید" />
 
-        {/* Sizes */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-xl font-bold mb-4">اندازه‌ها</h2>
-          <div className="flex flex-wrap items-center gap-3">
-            <Button size="sm">کوچیک</Button>
-            <Button size="md">متوسط</Button>
-            <Button size="lg">بزرگ</Button>
-          </div>
-        </section>
+          {/* با Label */}
+          <Input label="نام و نام خانوادگی" placeholder="مثال: محمد احمدی" />
 
-        {/* Icons */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-xl font-bold mb-4">آیکون‌ها</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button leftIcon={<Plane className="w-4 h-4" />}>
-              پرواز
-            </Button>
-            <Button variant="outline" rightIcon={<Search className="w-4 h-4" />}>
-              جستجو
-            </Button>
-            <Button variant="danger" leftIcon={<Trash2 className="w-4 h-4" />}>
-              حذف
-            </Button>
-            <Button variant="secondary" leftIcon={<Plus className="w-4 h-4" />}>
-              افزودن
-            </Button>
-          </div>
-        </section>
+          {/* اجباری */}
+          <Input
+            label="شماره موبایل"
+            placeholder="09123456789"
+            required
+          />
 
-        {/* States */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-xl font-bold mb-4">حالت‌ها</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button loading>در حال بارگذاری</Button>
-            <Button disabled>غیرفعال</Button>
-            <Button variant="outline" loading>
-              Loading outline
-            </Button>
-          </div>
-        </section>
+          {/* با Helper Text */}
+          <Input
+            label="ایمیل"
+            placeholder="example@email.com"
+            helperText="ایمیل خود را برای دریافت بلیط وارد کنید"
+          />
 
-        {/* Full Width */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-xl font-bold mb-4">عرض کامل</h2>
-          <Button fullWidth size="lg" leftIcon={<Search className="w-5 h-5" />}>
-            جستجوی پرواز
-          </Button>
-        </section>
+          {/* با آیکون چپ */}
+          <Input
+            label="جستجو"
+            placeholder="مقصد خود را وارد کنید"
+            leftIcon={<Search className="w-4 h-4" />}
+          />
+
+          {/* با آیکون راست */}
+          <Input
+            label="ایمیل"
+            type="email"
+            placeholder="example@email.com"
+            rightIcon={<Mail className="w-4 h-4" />}
+          />
+
+          {/* حالت خطا */}
+          <Input
+            label="رمز عبور"
+            type="password"
+            placeholder="رمز عبور"
+            leftIcon={<Lock className="w-4 h-4" />}
+            error
+            errorMessage="رمز عبور باید حداقل ۸ کاراکتر باشد"
+          />
+
+          {/* غیرفعال */}
+          <Input
+            label="کد ملی"
+            value="1234567890"
+            disabled
+          />
+        </div>
       </div>
     </div>
   );
