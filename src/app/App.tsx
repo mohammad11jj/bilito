@@ -1,115 +1,106 @@
-import { useState } from 'react';
-import { Plane, FileText, CreditCard, Shield } from 'lucide-react';
-import { Tabs, type Tab } from '../shared/components/ui/Tabs';
+import { Accordion, type AccordionItem } from '../shared/components/ui/Accordion';
 
-const tabs: Tab[] = [
+const faqItems: AccordionItem[] = [
   {
-    id: 'info',
-    label: 'اطلاعات پرواز',
-    icon: <Plane className="w-4 h-4" />,
+    id: '1',
+    title: 'در هر پرواز میزان بار مجاز چقدر است؟',
     content: (
-      <div className="space-y-3 text-start">
-        <p className="font-bold">پرواز استانبول به دبی</p>
-        <p className="text-sm text-gray-7">
-          ساعت حرکت: ۰۲:۵۰ | ساعت رسیدن: ۲۱:۵۰ | مدت: ۱۹ ساعت
-        </p>
-        <p className="text-sm text-gray-7">شماره پرواز: ۱۶۵ | کلاس: اکونومی</p>
-      </div>
+      <p>
+        بلیط تمام خطوط هوایی دنیا در سایت بیلیتو موجود است. چه پروازهایی که
+        مبدا یا مقصد آنها ایران است و چه پروازهای داخلی. پروازهای ایرانی مثل
+        لوفت‌هانزا، امارات، قطرایرویز، ترکیش،ایر، ایران‌ایر و ...
+      </p>
     ),
   },
   {
-    id: 'refund',
-    label: 'قوانین استرداد',
-    icon: <FileText className="w-4 h-4" />,
+    id: '2',
+    title: 'نرخ بلیط هواپیما برای نوزادان و کودکان زیر ۱۲ سال چگونه است؟',
     content: (
-      <div className="space-y-3 text-start">
-        <p className="font-bold">قوانین استرداد</p>
-        <ul className="text-sm text-gray-7 space-y-2 list-disc pr-5">
-          <li>۷۰٪ جریمه از ساعت ۱۱:۰۰ صبح ۸ روز قبل از پرواز</li>
-          <li>۵۵٪ جریمه از زمان صدور بلیط تا ساعت ۱۱:۰۰ صبح ۸ روز قبل</li>
-          <li>۸۰٪ جریمه از ساعت ۱۱:۰۰ صبح ۳ روز قبل از پرواز</li>
-          <li>۱۰۰٪ جریمه از ساعت ۱۱:۰۰ صبح ۲ روز قبل از پرواز به بعد</li>
-        </ul>
-      </div>
+      <p>
+        نرخ بلیط برای کودکان زیر ۱۲ سال معمولاً ۵۰٪ بلیط بزرگسال و برای
+        نوزادان (زیر ۲ سال) ۱۰٪ بلیط بزرگسال محاسبه می‌شود.
+      </p>
     ),
   },
   {
-    id: 'payment',
-    label: 'پرداخت',
-    icon: <CreditCard className="w-4 h-4" />,
+    id: '3',
+    title: 'آیا پس از خرید اینترنتی بلیط هواپیما امکان استرداد آن وجود دارد؟',
     content: (
-      <div className="space-y-3 text-start">
-        <p className="font-bold">اطلاعات پرداخت</p>
-        <p className="text-sm text-gray-7">
-          مبلغ کل: ۳۳,۴۱۰,۴۶۲ تومان
-        </p>
-        <p className="text-sm text-gray-7">
-          قابل پرداخت از طریق کیف پول یا درگاه بانکی
-        </p>
-      </div>
+      <p>
+        بله، طبق قوانین استرداد، می‌توانید بسته به زمان باقی‌مانده تا پرواز،
+        با پرداخت جریمه مشخص، بلیط خود را استرداد کنید.
+      </p>
     ),
   },
   {
-    id: 'insurance',
-    label: 'بیمه سامان',
-    icon: <Shield className="w-4 h-4" />,
+    id: '4',
+    title: 'آیا پس از خرید بلیط هواپیما امکان تغییر نام یا نام خانوادگی وجود دارد؟',
     content: (
-      <div className="space-y-3 text-start">
-        <p className="font-bold">بیمه مسافرتی</p>
-        <p className="text-sm text-gray-7">
-          طرح اقتصادی با پوشش کرونا، سطح پوشش ۱۰,۰۰۰ یورو
-        </p>
-      </div>
+      <p>
+        معمولاً تغییر نام امکان‌پذیر نیست، ولی در برخی موارد با پرداخت هزینه
+        امکان‌پذیر است. باید با پشتیبانی تماس بگیرید.
+      </p>
     ),
   },
   {
-    id: 'disabled',
-    label: 'غیرفعال',
-    content: <p>این تب غیرفعاله</p>,
+    id: '5',
+    title: 'هنگامی که از سایت خرید بلیط هواپیما رزرو بلیط را انجام می‌دهیم امکان انتخاب صندلی مورد نظرمان وجود دارد؟',
+    content: (
+      <p>
+        بله، پس از انتخاب پرواز، می‌توانید صندلی مورد نظر خود را انتخاب کنید.
+      </p>
+    ),
+  },
+  {
+    id: '6',
+    title: 'بلیط پرواز چه کشورهایی ایرانی‌هایی را می‌توانم در سایت بیلیتو جستجو و خریداری کنم؟',
+    content: (
+      <p>
+        تمام پروازهای بین‌المللی از ایران به کشورهای مختلف و همچنین پروازهای
+        داخلی.
+      </p>
+    ),
+  },
+  {
+    id: '7',
+    title: 'چطور تاریخ پرواز را تغییر دهم؟',
+    content: (
+      <p>
+        از طریق پنل کاربری، بخش "سفرهای من"، می‌توانید درخواست تغییر تاریخ
+        دهید. توجه کنید که جریمه تغییر تاریخ اعمال می‌شود.
+      </p>
+    ),
+  },
+  {
+    id: '8',
+    title: 'غیرفعال',
+    content: <p>این آیتم غیرفعاله</p>,
     disabled: true,
   },
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState('info');
-
   return (
     <div className="min-h-screen bg-gray-1 p-8">
       <div className="max-w-2xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Tabs
+          تست کامپوننت Accordion
         </h1>
 
-        {/* Line Variant */}
+        {/* Single */}
         <div className="bg-white p-6 rounded-md shadow-card">
           <h2 className="text-lg font-bold mb-4 text-start">
-            حالت Line (خط زیر تب فعال)
+            حالت Single (فقط یک آیتم باز)
           </h2>
-          <Tabs tabs={tabs} variant="line" defaultTab="info" />
+          <Accordion items={faqItems} type="single" />
         </div>
 
-        {/* Pill Variant */}
+        {/* Multiple */}
         <div className="bg-white p-6 rounded-md shadow-card">
           <h2 className="text-lg font-bold mb-4 text-start">
-            حالت Pill (پس‌زمینه برای تب فعال)
+            حالت Multiple (چند آیتم باز)
           </h2>
-          <Tabs tabs={tabs} variant="pill" defaultTab="info" />
-        </div>
-
-        {/* Controlled */}
-        <div className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">
-            حالت کنترل‌شده
-          </h2>
-          <p className="text-sm text-gray-5 mb-3 text-start">
-            تب فعال: <span className="font-bold text-primary">{activeTab}</span>
-          </p>
-          <Tabs
-            tabs={tabs}
-            variant="line"
-            activeTab={activeTab}
-            onChange={setActiveTab}
-          />
+          <Accordion items={faqItems} type="multiple" defaultOpen={['1', '2']} />
         </div>
       </div>
     </div>
