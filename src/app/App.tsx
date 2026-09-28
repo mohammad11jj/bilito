@@ -1,78 +1,74 @@
-import { Plane, MapPin } from 'lucide-react';
-import { Card, CardHeader, CardBody, CardFooter } from '../shared/components/ui/Card';
+import { useState } from 'react';
+import { Stepper } from '../shared/components/ui/Stepper';
 import { Button } from '../shared/components/ui/Button';
-import { Badge } from '../shared/components/ui/Badge';
+
+const steps = [
+  { id: 1, label: 'انتخاب بلیط' },
+  { id: 2, label: 'مشخصات مسافران' },
+  { id: 3, label: 'تایید و پرداخت' },
+  { id: 4, label: 'صدور بلیط' },
+];
 
 function App() {
+  const [currentStep, setCurrentStep] = useState(1);
+
   return (
     <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Card
+          تست کامپوننت Stepper
         </h1>
 
-        {/* Card ساده */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-start">Card ساده</h2>
-          <Card>
-            <p className="text-start text-gray-7">
-              این یک Card ساده با پدینگ پیش‌فرض است.
-            </p>
-          </Card>
-        </section>
+        {/* Stepper */}
+        <div className="bg-white p-6 rounded-md shadow-card">
+          <Stepper steps={steps} currentStep={currentStep} />
+        </div>
 
-        {/* Card با بخش‌های جدا */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-start">Card با Header و Footer</h2>
-          <Card padding="none">
-            <CardHeader>
-              <h3 className="font-bold">اطلاعات پرواز</h3>
-              <Badge variant="success" size="sm">تایید شده</Badge>
-            </CardHeader>
-            <CardBody>
-              <div className="flex items-center gap-3">
-                <Plane className="w-5 h-5 text-primary" />
-                <span className="text-gray-7">
-                  پرواز استانبول به دبی، ساعت ۲۱:۵۰
-                </span>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <span className="text-primary font-bold">۳,۳۴۱,۰۴۶ تومان</span>
-              <Button size="sm">جزئیات بلیط</Button>
-            </CardFooter>
-          </Card>
-        </section>
-
-        {/* Variants */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-start">Variantها</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Card variant="default">
-              <p className="text-start text-sm">Default</p>
-            </Card>
-            <Card variant="outlined">
-              <p className="text-start text-sm">Outlined</p>
-            </Card>
-            <Card variant="elevated">
-              <p className="text-start text-sm">Elevated</p>
-            </Card>
+        {/* Controls */}
+        <div className="bg-white p-6 rounded-md shadow-card space-y-4">
+          <p className="text-start text-gray-7">
+            مرحله فعلی: <span className="font-bold text-primary">{currentStep}</span>
+          </p>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentStep((s) => Math.max(1, s - 1))}
+              disabled={currentStep === 1}
+            >
+              مرحله قبل
+            </Button>
+            <Button
+              onClick={() =>
+                setCurrentStep((s) => Math.min(steps.length, s + 1))
+              }
+              disabled={currentStep === steps.length}
+            >
+              مرحله بعد
+            </Button>
           </div>
-        </section>
+        </div>
 
-        {/* Hoverable */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-start">قابل Hover</h2>
-          <Card hoverable>
-            <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-primary" />
-              <div className="text-start">
-                <p className="font-bold">مشهد</p>
-                <p className="text-gray-5 text-sm">شروع قیمت از ۱,۵۰۰,۰۰۰ تومان</p>
-              </div>
-            </div>
-          </Card>
-        </section>
+        {/* Stepper در حالت‌های مختلف */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold text-start">
+            حالت‌های مختلف Stepper
+          </h2>
+
+          <div className="bg-white p-6 rounded-md shadow-card space-y-2">
+            <p className="text-start text-sm text-gray-5">مرحله ۱ (شروع):</p>
+            <Stepper steps={steps} currentStep={1} />
+          </div>
+
+          <div className="bg-white p-6 rounded-md shadow-card space-y-2">
+            <p className="text-start text-sm text-gray-5">مرحله ۲:</p>
+            <Stepper steps={steps} currentStep={2} />
+          </div>
+
+          <div className="bg-white p-6 rounded-md shadow-card space-y-2">
+            <p className="text-start text-sm text-gray-5">مرحله ۴ (پایان):</p>
+            <Stepper steps={steps} currentStep={4} />
+          </div>
+        </div>
       </div>
     </div>
   );
