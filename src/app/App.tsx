@@ -1,78 +1,93 @@
-import { useState } from 'react';
-import { Modal } from '../shared/components/ui/Modal';
-import { Button } from '../shared/components/ui/Button';
+import { Plane, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Badge } from '../shared/components/ui/Badge';
 
 function App() {
-  const [modal1, setModal1] = useState(false);
-  const [modal2, setModal2] = useState(false);
-  const [modal3, setModal3] = useState(false);
-
   return (
     <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-md mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Modal
+          تست کامپوننت Badge
         </h1>
 
-        <div className="bg-white p-6 rounded-md shadow-card space-y-3">
-          <Button onClick={() => setModal1(true)}>باز کردن Modal ساده</Button>
-          <Button variant="outline" onClick={() => setModal2(true)}>
-            Modal با Footer
-          </Button>
-          <Button variant="secondary" onClick={() => setModal3(true)}>
-            Modal بزرگ
-          </Button>
-        </div>
+        {/* Variants */}
+        <section className="bg-white p-6 rounded-md shadow-card">
+          <h2 className="text-lg font-bold mb-4 text-start">Variantها</h2>
+          <div className="flex flex-wrap gap-3">
+            <Badge variant="default">پیش‌فرض</Badge>
+            <Badge variant="primary">اکونومی</Badge>
+            <Badge variant="success">تایید شده</Badge>
+            <Badge variant="warning">در انتظار</Badge>
+            <Badge variant="error">تایید نشده</Badge>
+            <Badge variant="info">اطلاعات</Badge>
+          </div>
+        </section>
+
+        {/* Sizes */}
+        <section className="bg-white p-6 rounded-md shadow-card">
+          <h2 className="text-lg font-bold mb-4 text-start">اندازه‌ها</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge size="sm" variant="primary">کوچیک</Badge>
+            <Badge size="md" variant="primary">متوسط</Badge>
+          </div>
+        </section>
+
+        {/* Pill */}
+        <section className="bg-white p-6 rounded-md shadow-card">
+          <h2 className="text-lg font-bold mb-4 text-start">حالت Pill</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge variant="primary" pill>اکونومی</Badge>
+            <Badge variant="error" pill>غیر قابل استرداد</Badge>
+            <Badge variant="success" pill>تایید شده</Badge>
+          </div>
+        </section>
+
+        {/* With Icon */}
+        <section className="bg-white p-6 rounded-md shadow-card">
+          <h2 className="text-lg font-bold mb-4 text-start">با آیکون</h2>
+          <div className="flex flex-wrap gap-3">
+            <Badge variant="primary" icon={<Plane className="w-3.5 h-3.5" />}>
+              پرواز مستقیم
+            </Badge>
+            <Badge
+              variant="success"
+              icon={<CheckCircle className="w-3.5 h-3.5" />}
+            >
+              تایید شده
+            </Badge>
+            <Badge
+              variant="error"
+              icon={<XCircle className="w-3.5 h-3.5" />}
+            >
+              لغو شده
+            </Badge>
+            <Badge
+              variant="warning"
+              icon={<AlertCircle className="w-3.5 h-3.5" />}
+            >
+              در انتظار تایید
+            </Badge>
+          </div>
+        </section>
+
+        {/* نمونه واقعی از پروژه */}
+        <section className="bg-white p-6 rounded-md shadow-card">
+          <h2 className="text-lg font-bold mb-4 text-start">
+            نمونه واقعی از پروژه
+          </h2>
+          <div className="border border-gray-3 rounded-md p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-bold">پرواز استانبول به دبی</span>
+              <Badge variant="error" size="sm">5 صندلی باقی مانده</Badge>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <Badge variant="primary" size="sm">اکونومی</Badge>
+              <Badge variant="info" size="sm">سیستمتی</Badge>
+              <Badge variant="error" size="sm">غیر قابل استرداد</Badge>
+              <Badge variant="success" size="sm">تایید شده</Badge>
+            </div>
+          </div>
+        </section>
       </div>
-
-      {/* Modal ۱: ساده */}
-      <Modal
-        isOpen={modal1}
-        onClose={() => setModal1(false)}
-        title="Modal ساده"
-      >
-        <p className="text-gray-7 text-start">
-          این یک Modal ساده است. می‌تونی با کلیک بیرون یا دکمه Escape ببندیش.
-        </p>
-      </Modal>
-
-      {/* Modal ۲: با Footer */}
-      <Modal
-        isOpen={modal2}
-        onClose={() => setModal2(false)}
-        title="تایید عملیات"
-        footer={
-          <>
-            <Button variant="ghost" onClick={() => setModal2(false)}>
-              انصراف
-            </Button>
-            <Button onClick={() => setModal2(false)}>تایید</Button>
-          </>
-        }
-      >
-        <p className="text-gray-7 text-start">
-          آیا از انجام این عملیات مطمئن هستید؟ این عملیات قابل بازگشت نیست.
-        </p>
-      </Modal>
-
-      {/* Modal ۳: بزرگ با محتوای طولانی */}
-      <Modal
-        isOpen={modal3}
-        onClose={() => setModal3(false)}
-        title="قوانین و مقررات"
-        size="lg"
-        footer={<Button onClick={() => setModal3(false)}>متوجه شدم</Button>}
-      >
-        <div className="space-y-4 text-start text-gray-7 text-sm leading-7">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <p key={i}>
-              {i + 1}. این یک پاراگراف تستی برای بررسی اسکرول داخلی Modal است.
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است.
-            </p>
-          ))}
-        </div>
-      </Modal>
     </div>
   );
 }
