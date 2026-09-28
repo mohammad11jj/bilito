@@ -1,71 +1,63 @@
-import { Skeleton } from '../shared/components/ui/Skeleton';
+import { SearchX, Inbox, Ticket, Wallet } from 'lucide-react';
+import { EmptyState } from '../shared/components/ui/EmptyState';
+import { Button } from '../shared/components/ui/Button';
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-1 p-8">
       <div className="max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Skeleton
+          تست کامپوننت EmptyState
         </h1>
 
-        {/* اشکال پایه */}
-        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
-          <h2 className="text-lg font-bold text-start">اشکال پایه</h2>
-          <Skeleton width={200} height={20} />
-          <Skeleton width="100%" height={40} />
-          <div className="flex gap-4 items-center">
-            <Skeleton variant="circular" width={48} height={48} />
-            <div className="flex-1 space-y-2">
-              <Skeleton variant="text" width="60%" />
-              <Skeleton variant="text" width="40%" />
-            </div>
-          </div>
-        </section>
+        {/* اندازه متوسط - نتایج جستجو */}
+        <div className="bg-white rounded-md shadow-card">
+          <EmptyState
+            icon={<SearchX className="w-full h-full" />}
+            title="در این تاریخ پروازی یافت نشد"
+            description="برای پیدا کردن مسیر درست، می‌توانید در تاریخ دیگر جستجو کنید."
+            action={
+              <Button variant="outline">جستجو در تاریخ دیگر</Button>
+            }
+          />
+        </div>
 
-        {/* Skeleton کارت پرواز */}
-        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
-          <h2 className="text-lg font-bold text-start">Skeleton کارت پرواز</h2>
-          <div className="border border-gray-3 rounded-md p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <Skeleton width={120} height={20} />
-              <Skeleton width={80} height={20} />
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Skeleton variant="circular" width={40} height={40} />
-                <Skeleton width={80} height={16} />
-              </div>
-              <Skeleton width={60} height={16} />
-            </div>
-            <Skeleton width="100%" height={44} />
-          </div>
-        </section>
+        {/* اندازه کوچیک - تیکت‌های من */}
+        <div className="bg-white p-6 rounded-md shadow-card">
+          <EmptyState
+            size="sm"
+            icon={<Ticket className="w-full h-full" />}
+            title="شما هیچ تیکتی دریافت نکردید"
+            action={
+              <Button size="sm" variant="ghost">
+                برو به صفحه اصلی
+              </Button>
+            }
+          />
+        </div>
 
-        {/* Skeleton لیست */}
-        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
-          <h2 className="text-lg font-bold text-start">Skeleton لیست</h2>
-          <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-4 p-3 border border-gray-2 rounded-md"
-              >
-                <Skeleton variant="circular" width={40} height={40} />
-                <div className="flex-1 space-y-2">
-                  <Skeleton variant="text" width="70%" />
-                  <Skeleton variant="text" width="40%" />
-                </div>
-                <Skeleton width={60} height={24} />
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* اندازه بزرگ - کیف پول */}
+        <div className="bg-white p-6 rounded-md shadow-card">
+          <EmptyState
+            size="lg"
+            icon={<Wallet className="w-full h-full" />}
+            title="کیف پول شما خالی است"
+            description="برای استفاده از کیف پول، ابتدا باید آن را شارژ کنید."
+            action={
+              <Button leftIcon={<Wallet className="w-4 h-4" />}>
+                شارژ کیف پول
+              </Button>
+            }
+          />
+        </div>
 
-        {/* بدون انیمیشن */}
-        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
-          <h2 className="text-lg font-bold text-start">بدون انیمیشن</h2>
-          <Skeleton animation="none" width="100%" height={40} />
-        </section>
+        {/* بدون توضیح و بدون دکمه */}
+        <div className="bg-white p-6 rounded-md shadow-card">
+          <EmptyState
+            icon={<Inbox className="w-full h-full" />}
+            title="پیامی وجود ندارد"
+          />
+        </div>
       </div>
     </div>
   );
