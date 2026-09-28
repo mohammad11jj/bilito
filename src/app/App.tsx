@@ -1,4 +1,6 @@
-import { Plane, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Plane, MapPin } from 'lucide-react';
+import { Card, CardHeader, CardBody, CardFooter } from '../shared/components/ui/Card';
+import { Button } from '../shared/components/ui/Button';
 import { Badge } from '../shared/components/ui/Badge';
 
 function App() {
@@ -6,86 +8,70 @@ function App() {
     <div className="min-h-screen bg-gray-1 p-8">
       <div className="max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Badge
+          تست کامپوننت Card
         </h1>
 
-        {/* Variants */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">Variantها</h2>
-          <div className="flex flex-wrap gap-3">
-            <Badge variant="default">پیش‌فرض</Badge>
-            <Badge variant="primary">اکونومی</Badge>
-            <Badge variant="success">تایید شده</Badge>
-            <Badge variant="warning">در انتظار</Badge>
-            <Badge variant="error">تایید نشده</Badge>
-            <Badge variant="info">اطلاعات</Badge>
-          </div>
+        {/* Card ساده */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-start">Card ساده</h2>
+          <Card>
+            <p className="text-start text-gray-7">
+              این یک Card ساده با پدینگ پیش‌فرض است.
+            </p>
+          </Card>
         </section>
 
-        {/* Sizes */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">اندازه‌ها</h2>
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge size="sm" variant="primary">کوچیک</Badge>
-            <Badge size="md" variant="primary">متوسط</Badge>
-          </div>
-        </section>
-
-        {/* Pill */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">حالت Pill</h2>
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge variant="primary" pill>اکونومی</Badge>
-            <Badge variant="error" pill>غیر قابل استرداد</Badge>
-            <Badge variant="success" pill>تایید شده</Badge>
-          </div>
-        </section>
-
-        {/* With Icon */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">با آیکون</h2>
-          <div className="flex flex-wrap gap-3">
-            <Badge variant="primary" icon={<Plane className="w-3.5 h-3.5" />}>
-              پرواز مستقیم
-            </Badge>
-            <Badge
-              variant="success"
-              icon={<CheckCircle className="w-3.5 h-3.5" />}
-            >
-              تایید شده
-            </Badge>
-            <Badge
-              variant="error"
-              icon={<XCircle className="w-3.5 h-3.5" />}
-            >
-              لغو شده
-            </Badge>
-            <Badge
-              variant="warning"
-              icon={<AlertCircle className="w-3.5 h-3.5" />}
-            >
-              در انتظار تایید
-            </Badge>
-          </div>
-        </section>
-
-        {/* نمونه واقعی از پروژه */}
-        <section className="bg-white p-6 rounded-md shadow-card">
-          <h2 className="text-lg font-bold mb-4 text-start">
-            نمونه واقعی از پروژه
-          </h2>
-          <div className="border border-gray-3 rounded-md p-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-bold">پرواز استانبول به دبی</span>
-              <Badge variant="error" size="sm">5 صندلی باقی مانده</Badge>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              <Badge variant="primary" size="sm">اکونومی</Badge>
-              <Badge variant="info" size="sm">سیستمتی</Badge>
-              <Badge variant="error" size="sm">غیر قابل استرداد</Badge>
+        {/* Card با بخش‌های جدا */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-start">Card با Header و Footer</h2>
+          <Card padding="none">
+            <CardHeader>
+              <h3 className="font-bold">اطلاعات پرواز</h3>
               <Badge variant="success" size="sm">تایید شده</Badge>
-            </div>
+            </CardHeader>
+            <CardBody>
+              <div className="flex items-center gap-3">
+                <Plane className="w-5 h-5 text-primary" />
+                <span className="text-gray-7">
+                  پرواز استانبول به دبی، ساعت ۲۱:۵۰
+                </span>
+              </div>
+            </CardBody>
+            <CardFooter>
+              <span className="text-primary font-bold">۳,۳۴۱,۰۴۶ تومان</span>
+              <Button size="sm">جزئیات بلیط</Button>
+            </CardFooter>
+          </Card>
+        </section>
+
+        {/* Variants */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-start">Variantها</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Card variant="default">
+              <p className="text-start text-sm">Default</p>
+            </Card>
+            <Card variant="outlined">
+              <p className="text-start text-sm">Outlined</p>
+            </Card>
+            <Card variant="elevated">
+              <p className="text-start text-sm">Elevated</p>
+            </Card>
           </div>
+        </section>
+
+        {/* Hoverable */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-start">قابل Hover</h2>
+          <Card hoverable>
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-primary" />
+              <div className="text-start">
+                <p className="font-bold">مشهد</p>
+                <p className="text-gray-5 text-sm">شروع قیمت از ۱,۵۰۰,۰۰۰ تومان</p>
+              </div>
+            </div>
+          </Card>
         </section>
       </div>
     </div>
