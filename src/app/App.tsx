@@ -1,80 +1,71 @@
-import { useState } from 'react';
-import { Pagination } from '../shared/components/ui/Pagination';
+import { Skeleton } from '../shared/components/ui/Skeleton';
 
 function App() {
-  const [page1, setPage1] = useState(1);
-  const [page2, setPage2] = useState(5);
-  const [page3, setPage3] = useState(10);
-  const [page4, setPage4] = useState(50);
-
   return (
     <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-primary text-start">
-          تست کامپوننت Pagination
+          تست کامپوننت Skeleton
         </h1>
 
-        <div className="bg-white p-6 rounded-md shadow-card space-y-6">
-          {/* ۵ صفحه - همه نشون داده می‌شن */}
-          <div className="space-y-2">
-            <p className="text-sm text-gray-5 text-start">
-              ۵ صفحه (همه شماره‌ها):
-            </p>
-            <Pagination
-              currentPage={page1}
-              totalPages={5}
-              onPageChange={setPage1}
-            />
-            <p className="text-xs text-gray-6 text-center">
-              صفحه فعلی: {page1}
-            </p>
+        {/* اشکال پایه */}
+        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
+          <h2 className="text-lg font-bold text-start">اشکال پایه</h2>
+          <Skeleton width={200} height={20} />
+          <Skeleton width="100%" height={40} />
+          <div className="flex gap-4 items-center">
+            <Skeleton variant="circular" width={48} height={48} />
+            <div className="flex-1 space-y-2">
+              <Skeleton variant="text" width="60%" />
+              <Skeleton variant="text" width="40%" />
+            </div>
           </div>
+        </section>
 
-          {/* ۱۰ صفحه - صفحه ۵ */}
-          <div className="space-y-2">
-            <p className="text-sm text-gray-5 text-start">
-              ۱۰ صفحه (صفحه جاری ۵):
-            </p>
-            <Pagination
-              currentPage={page2}
-              totalPages={10}
-              onPageChange={setPage2}
-            />
-            <p className="text-xs text-gray-6 text-center">
-              صفحه فعلی: {page2}
-            </p>
+        {/* Skeleton کارت پرواز */}
+        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
+          <h2 className="text-lg font-bold text-start">Skeleton کارت پرواز</h2>
+          <div className="border border-gray-3 rounded-md p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <Skeleton width={120} height={20} />
+              <Skeleton width={80} height={20} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton width={80} height={16} />
+              </div>
+              <Skeleton width={60} height={16} />
+            </div>
+            <Skeleton width="100%" height={44} />
           </div>
+        </section>
 
-          {/* ۱۰ صفحه - صفحه آخر */}
-          <div className="space-y-2">
-            <p className="text-sm text-gray-5 text-start">
-              ۱۰ صفحه (صفحه جاری ۱۰ - آخرین):
-            </p>
-            <Pagination
-              currentPage={page3}
-              totalPages={10}
-              onPageChange={setPage3}
-            />
-            <p className="text-xs text-gray-6 text-center">
-              صفحه فعلی: {page3}
-            </p>
+        {/* Skeleton لیست */}
+        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
+          <h2 className="text-lg font-bold text-start">Skeleton لیست</h2>
+          <div className="space-y-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-4 p-3 border border-gray-2 rounded-md"
+              >
+                <Skeleton variant="circular" width={40} height={40} />
+                <div className="flex-1 space-y-2">
+                  <Skeleton variant="text" width="70%" />
+                  <Skeleton variant="text" width="40%" />
+                </div>
+                <Skeleton width={60} height={24} />
+              </div>
+            ))}
           </div>
+        </section>
 
-          {/* ۱۰۰ صفحه */}
-          <div className="space-y-2">
-            <p className="text-sm text-gray-5 text-start">
-              ۱۰۰ صفحه (صفحه جاری ۵۰):
-            </p>
-            <Pagination
-              currentPage={page4}
-              totalPages={100}
-              onPageChange={setPage4}
-            />
-            <p className="text-xs text-gray-6 text-center">
-              صفحه فعلی: {page4}
-            </p>
-          </div>
-        </div>
+        {/* بدون انیمیشن */}
+        <section className="bg-white p-6 rounded-md shadow-card space-y-4">
+          <h2 className="text-lg font-bold text-start">بدون انیمیشن</h2>
+          <Skeleton animation="none" width="100%" height={40} />
+        </section>
       </div>
     </div>
   );
