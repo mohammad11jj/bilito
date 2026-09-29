@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
+import { Container } from '../../../shared/components/layout/Container';
 import { cn } from '../../../shared/utils/cn';
 
 type FlightType = 'international' | 'domestic';
@@ -80,8 +81,8 @@ export function HeroSection() {
       </div>
 
       {/* Floating Search Card */}
-      <div className="container mx-auto px-4">
-        <div className="relative -mt-20 lg:-mt-24 bg-white rounded-xl shadow-card p-6 lg:p-8 max-w-6xl mx-auto">
+      <Container>
+        <div className="relative -mt-20 lg:-mt-24 bg-white rounded-xl shadow-card p-6 lg:p-8">
           {/* Tabs */}
           <div className="flex items-center gap-2 border-b border-gray-2 mb-6">
             <TabButton
@@ -126,7 +127,6 @@ export function HeroSection() {
                 : 'lg:grid-cols-[1fr_auto_1fr_0.9fr_0.8fr_0.8fr_auto]',
             )}
           >
-            {/* Origin */}
             <Select
               label="مبدأ"
               placeholder="شهر مبدأ"
@@ -135,7 +135,6 @@ export function HeroSection() {
               onChange={(e) => setOrigin(e.target.value)}
             />
 
-            {/* Swap Button */}
             <button
               type="button"
               onClick={handleSwap}
@@ -151,7 +150,6 @@ export function HeroSection() {
               <ArrowLeftRight className="w-4 h-4" />
             </button>
 
-            {/* Destination */}
             <Select
               label="مقصد"
               placeholder="شهر مقصد"
@@ -160,14 +158,12 @@ export function HeroSection() {
               onChange={(e) => setDestination(e.target.value)}
             />
 
-            {/* Depart Date */}
             <DateField
               label="تاریخ رفت"
               value={departDate}
               onChange={setDepartDate}
             />
 
-            {/* Return Date */}
             {showReturnDate && (
               <DateField
                 label="برگشت"
@@ -176,13 +172,11 @@ export function HeroSection() {
               />
             )}
 
-            {/* Passengers */}
             <PassengersDropdown
               counts={passengers}
               onChange={setPassengers}
             />
 
-            {/* Class */}
             <Select
               label="کلاس"
               options={flightClasses}
@@ -190,7 +184,6 @@ export function HeroSection() {
               onChange={(e) => setFlightClass(e.target.value)}
             />
 
-            {/* Search Button - هم‌اندازه با فیلدها */}
             <Button
               onClick={handleSearch}
               leftIcon={<Search className="w-5 h-5" />}
@@ -200,7 +193,7 @@ export function HeroSection() {
             </Button>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

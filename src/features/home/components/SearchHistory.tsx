@@ -1,4 +1,5 @@
 import { Clock, X } from 'lucide-react';
+import { Container } from '../../../shared/components/layout/Container';
 import { cn } from '../../../shared/utils/cn';
 
 type SearchHistoryItem = {
@@ -25,8 +26,7 @@ export function SearchHistory({
   if (items.length === 0) return null;
 
   return (
-    <div className={cn('container mx-auto px-4 mt-10', className)}>
-      {/* Header */}
+    <Container className={cn('mt-10', className)}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-gray-7">
           <Clock className="w-4 h-4" />
@@ -44,7 +44,6 @@ export function SearchHistory({
         )}
       </div>
 
-      {/* Chips */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2">
         {items.map((item) => (
           <div
@@ -82,6 +81,6 @@ export function SearchHistory({
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

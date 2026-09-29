@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router";
 import { Menu, Phone, User, ChevronDown } from "lucide-react";
 import { Button } from "../ui/Button";
+import { Container } from "./Container";
 import { MobileMenu } from "./MobileMenu";
 import { cn } from "../../utils/cn";
 
@@ -17,11 +18,10 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white border-b border-gray-2">
-        <div className="container mx-auto px-4">
+        <Container>
           <div className="flex items-center justify-between h-16 gap-4">
             {/* ===== RIGHT (RTL): Logo ===== */}
             <Link to="/" className="flex items-center gap-2 shrink-0">
-              {/* Logo Icon */}
               <div className="relative w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
                 <svg
                   viewBox="0 0 24 24"
@@ -35,7 +35,6 @@ export function Header() {
                   <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
                 </svg>
               </div>
-              {/* Logo Text */}
               <span className="text-2xl font-bold text-primary">بیلیتو</span>
             </Link>
 
@@ -65,7 +64,6 @@ export function Header() {
                 </NavLink>
               ))}
 
-              {/* سایر موارد - Dropdown */}
               <button className="flex items-center gap-1 text-sm font-medium text-gray-7 hover:text-primary transition-colors py-5">
                 سایر موارد
                 <ChevronDown className="w-4 h-4" />
@@ -74,7 +72,6 @@ export function Header() {
 
             {/* ===== LEFT (RTL): Support + Login ===== */}
             <div className="hidden lg:flex items-center gap-4 shrink-0">
-              {/* Support */}
               <a
                 href="tel:0214045"
                 className="flex items-center gap-2 text-sm text-gray-7 hover:text-primary transition-colors"
@@ -83,7 +80,6 @@ export function Header() {
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
 
-              {/* Login Button */}
               <Button
                 leftIcon={<User className="w-4 h-4" />}
                 variant="primary"
@@ -103,10 +99,9 @@ export function Header() {
               <Menu className="w-6 h-6" />
             </button>
           </div>
-        </div>
+        </Container>
       </header>
 
-      {/* Mobile Menu Drawer */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}

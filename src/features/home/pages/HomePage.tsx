@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { SearchHistory } from '../components/SearchHistory';
+import { PopularDestinations } from '../components/PopularDestinations';
 
 const initialHistory = [
   { id: '1', origin: 'تهران', destination: 'استانبول' },
@@ -22,9 +23,12 @@ export function HomePage() {
     setHistory([]);
   };
 
-  const handleSelect = (item: { id: string; origin: string; destination: string }) => {
+  const handleHistorySelect = (item: { id: string; origin: string; destination: string }) => {
     alert(`جستجو برای: ${item.origin} به ${item.destination}`);
-    // بعداً: setOrigin, setDestination و trigger search
+  };
+
+  const handleDestinationClick = (id: string) => {
+    alert(`کلیک روی مقصد: ${id}`);
   };
 
   return (
@@ -32,10 +36,11 @@ export function HomePage() {
       <HeroSection />
       <SearchHistory
         items={history}
-        onSelect={handleSelect}
+        onSelect={handleHistorySelect}
         onRemove={handleRemove}
         onClearAll={handleClearAll}
       />
+      <PopularDestinations onSelect={handleDestinationClick} />
     </div>
   );
 }
