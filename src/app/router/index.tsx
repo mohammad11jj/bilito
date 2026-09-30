@@ -1,13 +1,12 @@
-import { createBrowserRouter } from "react-router";
-import { MainLayout } from "../../shared/components/layout/MainLayout";
-import { HomePage } from "../../features/home/pages/HomePage";
+import { createBrowserRouter } from 'react-router';
+import { MainLayout } from '../../shared/components/layout/MainLayout';
+import { HomePage } from '../../features/home/pages/HomePage';
+import { SearchResultsPage } from '../../features/flights/pages/SearchResultsPage';
 
 function InsurancePage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-primary text-start">
-        بیمه مسافرتی
-      </h1>
+      <h1 className="text-3xl font-bold text-primary text-start">بیمه مسافرتی</h1>
     </div>
   );
 }
@@ -25,9 +24,10 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/insurance", element: <InsurancePage /> },
-      { path: "*", element: <NotFoundPage /> },
+      { path: '/', element: <HomePage /> },
+      { path: '/flights/search', element: <SearchResultsPage /> },
+      { path: '/insurance', element: <InsurancePage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ]);

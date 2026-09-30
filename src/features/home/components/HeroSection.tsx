@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Plane,
   ArrowLeftRight,
@@ -34,6 +35,8 @@ const flightClasses = [
 ];
 
 export function HeroSection() {
+  const navigate = useNavigate();
+
   const [flightType, setFlightType] = useState<FlightType>('international');
   const [tripType, setTripType] = useState<TripType>('oneway');
   const [origin, setOrigin] = useState<string>('');
@@ -53,17 +56,17 @@ export function HeroSection() {
   };
 
   const handleSearch = () => {
-    console.log('Search params:', {
-      flightType,
-      tripType,
+    const params = new URLSearchParams({
       origin,
       destination,
       departDate,
       returnDate,
       flightClass,
-      passengers,
+      passengers: String(
+        passengers.adults + passengers.children + passengers.infants,
+      ),
     });
-    alert('جستجو انجام شد! (نتایج در مرحله بعد)');
+    navigate(`/flights/search?${params.toString()}`);
   };
 
   const showReturnDate = tripType === 'roundtrip';
