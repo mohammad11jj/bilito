@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { Container } from '../../../shared/components/layout/Container';
 import { SearchHeader } from '../components/SearchHeader';
 import { FilterSidebar } from '../components/FilterSidebar';
 import { PriceCalendar } from '../components/PriceCalendar';
 import { FlightCard, type FlightCardData } from '../components/FlightCard';
+import { SortDropdown, type SortOption } from '../components/SortDropdown';
 
-// دیتای نمونه
 const mockFlights: FlightCardData[] = [
   {
     id: '1',
@@ -48,6 +49,8 @@ const mockFlights: FlightCardData[] = [
 ];
 
 export function SearchResultsPage() {
+  const [sortBy, setSortBy] = useState<SortOption>('default');
+
   const searchParams = {
     origin: 'استانبول',
     destination: 'دبی',
@@ -56,6 +59,17 @@ export function SearchResultsPage() {
     passengers: 3,
     flightClass: 'اکونومی',
   };
+
+  const sortedFlights = [...mockFlights].sort((a, b) => {
+    switch (sortBy) {
+      case 'cheapest':
+        return a.price - b.price;
+      case 'fastest':
+        return a.stops - b.stops;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <div className="bg-gray-1 min-h-screen">
@@ -72,29 +86,38 @@ export function SearchResultsPage() {
       <Container className="py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
           {/* Sidebar */}
-          <aside className="lg:order-1">
-            <FilterSidebar
-              totalResults={121}
-              onApply={(filters) => console.log('Filters:', filters)}
-            />
+          <aside className="lg:order-1 min-w-0">
+            <div className="lg:sticky lg:top-20">
+              <FilterSidebar
+                totalResults={sortedFlights.length}
+                onApply={(filters) => console.log('Filters:', filters)}
+              />
+            </div>
           </aside>
 
           {/* Main */}
-          <main className="lg:order-2 space-y-4">
-            {/* Price Calendar */}
-            <PriceCalendar
-              onSelect={(dayId) => console.log('Selected day:', dayId)}
-            />
+          <main className="lg:order-2 space-y-4 min-w-0">
+            {/* Calendar + Sort (same row) */}
+            <div className="flex items-start gap-3">
+              <div className="flex-1 min-w-0">
+                <PriceCalendar
+                  onSelect={(dayId) => console.log('Selected day:', dayId)}
+                />
+              </div>
+              <SortDropdown
+                value={sortBy}
+                onChange={setSortBy}
+                onFilterClick={() => alert('باز کردن فیلتر (موبایل)')}
+              />
+            </div>
 
             {/* Flights List */}
             <div className="space-y-3">
-              {mockFlights.map((flight) => (
+              {sortedFlights.map((flight) => (
                 <FlightCard
                   key={flight.id}
                   flight={flight}
-                  onDetailsClick={(id) =>
-                    alert(`جزئیات پرواز ${id}`)
-                  }
+                  onDetailsClick={(id) => alert(`جزئیات پرواز ${id}`)}
                 />
               ))}
             </div>
