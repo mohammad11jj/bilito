@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FilterSection } from './FilterSection';
 import {
   FilterCheckboxGroup,
@@ -36,11 +35,12 @@ const airportOptions: CheckboxOption[] = [
 
 type FilterSidebarProps = {
   totalResults?: number;
+  filters: FlightFilters;
+  onChange: (filters: FlightFilters) => void;
   onApply?: (filters: FlightFilters) => void;
   className?: string;
 };
 
-/** تبدیل دقیقه به فرمت HH:MM */
 function formatTime(minutes: number): string {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
@@ -49,20 +49,20 @@ function formatTime(minutes: number): string {
 
 export function FilterSidebar({
   totalResults = 121,
+  filters,
+  onChange,
   onApply,
   className,
 }: FilterSidebarProps) {
-  const [filters, setFilters] = useState<FlightFilters>(initialFilters);
-
   const updateFilter = <K extends keyof FlightFilters>(
     key: K,
     value: FlightFilters[K],
   ) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
+    onChange({ ...filters, [key]: value });
   };
 
   const handleClearAll = () => {
-    setFilters(initialFilters);
+    onChange(initialFilters);
   };
 
   const handleApply = () => {
@@ -73,7 +73,6 @@ export function FilterSidebar({
     <div
       className={cn(
         'bg-white rounded-lg border border-gray-2',
-        'lg:sticky lg:top-20',
         className,
       )}
     >
@@ -116,10 +115,7 @@ export function FilterSidebar({
             min={0}
             max={1440}
             step={30}
-            values={[
-              filters.departureTime.min,
-              filters.departureTime.max,
-            ]}
+            values={[filters.departureTime.min, filters.departureTime.max]}
             onChange={(values) =>
               updateFilter('departureTime', {
                 min: values[0],
