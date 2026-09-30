@@ -4,6 +4,7 @@ import { SearchHistory } from "../components/SearchHistory";
 import { PopularDestinations } from "../components/PopularDestinations";
 import { TopDomesticFlights } from "../components/TopDomesticFlights";
 import { FAQSection } from "../components/FAQSection";
+import { FeaturesSection } from "../components/FeaturesSection";
 
 const initialHistory = [
   { id: "1", origin: "تهران", destination: "استانبول" },
@@ -49,6 +50,7 @@ export function HomePage() {
       <PopularDestinations onSelect={handleDestinationClick} />
       <TopDomesticFlights onSelect={(id) => alert(`کلیک روی پرواز: ${id}`)} />
       <FAQSection />
+      <FeaturesSection />
     </div>
   );
 }
