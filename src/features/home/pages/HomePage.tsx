@@ -1,16 +1,17 @@
-import { useState } from 'react';
-import { HeroSection } from '../components/HeroSection';
-import { SearchHistory } from '../components/SearchHistory';
-import { PopularDestinations } from '../components/PopularDestinations';
-import { TopDomesticFlights } from '../components/TopDomesticFlights';
+import { useState } from "react";
+import { HeroSection } from "../components/HeroSection";
+import { SearchHistory } from "../components/SearchHistory";
+import { PopularDestinations } from "../components/PopularDestinations";
+import { TopDomesticFlights } from "../components/TopDomesticFlights";
+import { FAQSection } from "../components/FAQSection";
 
 const initialHistory = [
-  { id: '1', origin: 'تهران', destination: 'استانبول' },
-  { id: '2', origin: 'تهران', destination: 'دبی' },
-  { id: '3', origin: 'تهران', destination: 'شیراز' },
-  { id: '4', origin: 'تهران', destination: 'مشهد' },
-  { id: '5', origin: 'تهران', destination: 'کیش' },
-  { id: '6', origin: 'تهران', destination: 'اصفهان' },
+  { id: "1", origin: "تهران", destination: "استانبول" },
+  { id: "2", origin: "تهران", destination: "دبی" },
+  { id: "3", origin: "تهران", destination: "شیراز" },
+  { id: "4", origin: "تهران", destination: "مشهد" },
+  { id: "5", origin: "تهران", destination: "کیش" },
+  { id: "6", origin: "تهران", destination: "اصفهان" },
 ];
 
 export function HomePage() {
@@ -24,7 +25,11 @@ export function HomePage() {
     setHistory([]);
   };
 
-  const handleHistorySelect = (item: { id: string; origin: string; destination: string }) => {
+  const handleHistorySelect = (item: {
+    id: string;
+    origin: string;
+    destination: string;
+  }) => {
     alert(`جستجو برای: ${item.origin} به ${item.destination}`);
   };
 
@@ -43,6 +48,7 @@ export function HomePage() {
       />
       <PopularDestinations onSelect={handleDestinationClick} />
       <TopDomesticFlights onSelect={(id) => alert(`کلیک روی پرواز: ${id}`)} />
+      <FAQSection />
     </div>
   );
 }
