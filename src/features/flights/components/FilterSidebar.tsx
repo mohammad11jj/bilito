@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Container } from '../../../shared/components/layout/Container';
 import { FilterSection } from './FilterSection';
 import {
   FilterCheckboxGroup,
   type CheckboxOption,
 } from './FilterCheckboxGroup';
 import { FilterRadioGroup, type RadioOption } from './FilterRadioGroup';
+import { FilterRangeSlider } from './FilterRangeSlider';
 import { initialFilters, type FlightFilters } from '../types';
 import { cn } from '../../../shared/utils/cn';
 
@@ -39,6 +39,13 @@ type FilterSidebarProps = {
   onApply?: (filters: FlightFilters) => void;
   className?: string;
 };
+
+/** تبدیل دقیقه به فرمت HH:MM */
+function formatTime(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
 
 export function FilterSidebar({
   totalResults = 121,
@@ -89,7 +96,40 @@ export function FilterSidebar({
       </div>
 
       {/* Filters */}
-      <div className="p-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+      <div className="p-4 max-h-[calc(100vh-200px)] overflow-y-auto space-y-1">
+        {/* Price */}
+        <FilterSection title="قیمت (تومان)">
+          <FilterRangeSlider
+            min={initialFilters.price.min}
+            max={initialFilters.price.max}
+            step={500000}
+            values={[filters.price.min, filters.price.max]}
+            onChange={(values) =>
+              updateFilter('price', { min: values[0], max: values[1] })
+            }
+          />
+        </FilterSection>
+
+        {/* Departure Time */}
+        <FilterSection title="زمان حرکت">
+          <FilterRangeSlider
+            min={0}
+            max={1440}
+            step={30}
+            values={[
+              filters.departureTime.min,
+              filters.departureTime.max,
+            ]}
+            onChange={(values) =>
+              updateFilter('departureTime', {
+                min: values[0],
+                max: values[1],
+              })
+            }
+            formatValue={formatTime}
+          />
+        </FilterSection>
+
         {/* Airlines */}
         <FilterSection title="شرکت هواپیمایی">
           <FilterCheckboxGroup
