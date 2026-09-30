@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { SearchHistory } from '../components/SearchHistory';
 import { PopularDestinations } from '../components/PopularDestinations';
+import { TopDomesticFlights } from '../components/TopDomesticFlights';
 
 const initialHistory = [
   { id: '1', origin: 'تهران', destination: 'استانبول' },
@@ -41,6 +42,7 @@ export function HomePage() {
         onClearAll={handleClearAll}
       />
       <PopularDestinations onSelect={handleDestinationClick} />
+      <TopDomesticFlights onSelect={(id) => alert(`کلیک روی پرواز: ${id}`)} />
     </div>
   );
 }
