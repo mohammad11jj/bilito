@@ -4,6 +4,7 @@ import { HomePage } from '../../features/home/pages/HomePage';
 import { SearchResultsPage } from '../../features/flights/pages/SearchResultsPage';
 import { InsurancePage } from '../../features/insurance/pages/InsurancePage';
 import { InsuranceResultsPage } from '../../features/insurance/pages/InsuranceResultsPage';
+import { InsuranceBookingPage } from '../../features/insurance/pages/InsuranceBookingPage';
 
 
 function NotFoundPage() {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: '/flights/search', element: <SearchResultsPage /> },
       { path: '/insurance', element: <InsurancePage /> },
       { path: '/insurance/results', element: <InsuranceResultsPage /> },
+      { path: '/insurance/booking', element: <InsuranceBookingPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
