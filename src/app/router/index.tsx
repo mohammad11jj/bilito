@@ -2,14 +2,8 @@ import { createBrowserRouter } from 'react-router';
 import { MainLayout } from '../../shared/components/layout/MainLayout';
 import { HomePage } from '../../features/home/pages/HomePage';
 import { SearchResultsPage } from '../../features/flights/pages/SearchResultsPage';
+import { InsurancePage } from '../../features/insurance/pages/InsurancePage';
 
-function InsurancePage() {
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-primary text-start">بیمه مسافرتی</h1>
-    </div>
-  );
-}
 
 function NotFoundPage() {
   return (
