@@ -7,6 +7,7 @@ import { InsuranceResultsPage } from '../../features/insurance/pages/InsuranceRe
 import { InsuranceBookingPage } from '../../features/insurance/pages/InsuranceBookingPage';
 import { UserLayout } from '../../features/user/components/UserLayout';
 import { ProfilePage } from '../../features/user/pages/ProfilePage';
+import { ProfileEditPage } from '../../features/user/pages/ProfileEditPage';
 import { TripsPage } from '../../features/user/pages/TripsPage';
 import { TicketsPage } from '../../features/user/pages/TicketsPage';
 import { WalletPage } from '../../features/user/pages/WalletPage';
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
         element: <UserLayout />,
         children: [
           { path: '/profile', element: <ProfilePage /> },
+          { path: '/profile/edit', element: <ProfileEditPage /> },
           { path: '/trips', element: <TripsPage /> },
           { path: '/tickets', element: <TicketsPage /> },
           { path: '/wallet', element: <WalletPage /> },
