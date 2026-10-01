@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
-import { X, Home, Shield, Plane, Phone, User, Info } from 'lucide-react';
+import { X, Home, Shield, Plane, Phone, User, Info, Ticket, Wallet } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { cn } from '../../utils/cn';
 
@@ -8,6 +8,8 @@ const mobileNavItems = [
   { label: 'صفحه اصلی', href: '/', icon: Home },
   { label: 'بیمه مسافرتی', href: '/insurance', icon: Shield },
   { label: 'سفرهای من', href: '/trips', icon: Plane },
+  { label: 'تیکت‌های من', href: '/tickets', icon: Ticket },
+  { label: 'کیف پول', href: '/wallet', icon: Wallet },
   { label: 'تماس با ما', href: '/contact', icon: Phone },
   { label: 'درباره ما', href: '/about', icon: Info },
 ];
@@ -18,7 +20,6 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  // قفل اسکرول
   useEffect(() => {
     if (isOpen) {
       const original = document.body.style.overflow;
@@ -29,7 +30,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }
   }, [isOpen]);
 
-  // بستن با Escape
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -63,7 +63,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-2 shrink-0">
-          <div className="flex items-center gap-2">
+          <Link to="/" onClick={onClose} className="flex items-center gap-2">
             <div className="relative w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
               <svg
                 viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               </svg>
             </div>
             <span className="text-2xl font-bold text-primary">بیلیتو</span>
-          </div>
+          </Link>
 
           <button
             type="button"
@@ -116,7 +116,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           })}
         </nav>
 
-        {/* Footer: Support + Login */}
+        {/* Footer: Support + Profile */}
         <div className="p-4 border-t border-gray-2 space-y-3 shrink-0">
           <a
             href="tel:0214045"
@@ -126,12 +126,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <span dir="ltr">۰۲۱-۴۰۴۵</span>
           </a>
 
-          <Button
-            leftIcon={<User className="w-4 h-4" />}
-            fullWidth
-          >
-            ورود / ثبت‌نام
-          </Button>
+          <Link to="/profile" onClick={onClose} className="block">
+            <Button leftIcon={<User className="w-4 h-4" />} fullWidth>
+              ورود / ثبت‌نام
+            </Button>
+          </Link>
         </div>
       </aside>
     </>

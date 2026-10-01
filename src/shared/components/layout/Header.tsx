@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router";
-import { Menu, Phone, User, ChevronDown } from "lucide-react";
-import { Button } from "../ui/Button";
-import { Container } from "./Container";
-import { MobileMenu } from "./MobileMenu";
-import { cn } from "../../utils/cn";
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router';
+import { Menu, Phone, User, ChevronDown } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Container } from './Container';
+import { MobileMenu } from './MobileMenu';
+import { cn } from '../../utils/cn';
 
 const mainNavItems = [
-  { label: "صفحه اصلی", href: "/" },
-  { label: "بیمه مسافرتی", href: "/insurance" },
-  { label: "سفرهای من", href: "/trips" },
+  { label: 'صفحه اصلی', href: '/' },
+  { label: 'بیمه مسافرتی', href: '/insurance' },
+  { label: 'سفرهای من', href: '/trips' },
 ];
 
 export function Header() {
@@ -20,7 +20,7 @@ export function Header() {
       <header className="sticky top-0 z-40 bg-white border-b border-gray-2">
         <Container>
           <div className="flex items-center justify-between h-16 gap-4">
-            {/* ===== RIGHT (RTL): Logo ===== */}
+            {/* Logo */}
             <Link to="/" className="flex items-center gap-2 shrink-0">
               <div className="relative w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
                 <svg
@@ -38,7 +38,7 @@ export function Header() {
               <span className="text-2xl font-bold text-primary">بیلیتو</span>
             </Link>
 
-            {/* ===== CENTER: Desktop Navigation ===== */}
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6 flex-1 justify-center">
               {mainNavItems.map((item) => (
                 <NavLink
@@ -46,10 +46,10 @@ export function Header() {
                   to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      "text-sm font-medium transition-colors relative py-5",
+                      'text-sm font-medium transition-colors relative py-5',
                       isActive
-                        ? "text-primary"
-                        : "text-gray-7 hover:text-primary",
+                        ? 'text-primary'
+                        : 'text-gray-7 hover:text-primary',
                     )
                   }
                 >
@@ -70,7 +70,7 @@ export function Header() {
               </button>
             </nav>
 
-            {/* ===== LEFT (RTL): Support + Login ===== */}
+            {/* Left: Support + Profile */}
             <div className="hidden lg:flex items-center gap-4 shrink-0">
               <a
                 href="tel:0214045"
@@ -80,16 +80,19 @@ export function Header() {
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
 
-              <Button
-                leftIcon={<User className="w-4 h-4" />}
-                variant="primary"
-                size="sm"
-              >
-                ورود/ثبت نام
-              </Button>
+              {/* Profile Button (شبیه‌سازی لاگین) */}
+              <Link to="/profile">
+                <Button
+                  leftIcon={<User className="w-4 h-4" />}
+                  variant="primary"
+                  size="sm"
+                >
+                  ورود/ثبت نام
+                </Button>
+              </Link>
             </div>
 
-            {/* ===== Mobile: Menu Icon ===== */}
+            {/* Mobile Menu Button */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
