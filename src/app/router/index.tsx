@@ -3,6 +3,7 @@ import { MainLayout } from '../../shared/components/layout/MainLayout';
 import { HomePage } from '../../features/home/pages/HomePage';
 import { SearchResultsPage } from '../../features/flights/pages/SearchResultsPage';
 import { InsurancePage } from '../../features/insurance/pages/InsurancePage';
+import { InsuranceResultsPage } from '../../features/insurance/pages/InsuranceResultsPage';
 
 
 function NotFoundPage() {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: '/', element: <HomePage /> },
       { path: '/flights/search', element: <SearchResultsPage /> },
       { path: '/insurance', element: <InsurancePage /> },
+      { path: '/insurance/results', element: <InsuranceResultsPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

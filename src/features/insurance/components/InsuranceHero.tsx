@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Shield, Search } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { Search } from 'lucide-react';
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
 import { Container } from '../../../shared/components/layout/Container';
@@ -10,6 +11,9 @@ const countries = [
   { value: 'germany', label: 'آلمان' },
   { value: 'france', label: 'فرانسه' },
   { value: 'italy', label: 'ایتالیا' },
+  { value: 'england', label: 'انگلستان' },
+  { value: 'canada', label: 'کانادا' },
+  { value: 'usa', label: 'آمریکا' },
 ];
 
 const durations = [
@@ -29,12 +33,19 @@ const passengersOptions = [
 ];
 
 export function InsuranceHero() {
+  const navigate = useNavigate();
+
   const [country, setCountry] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
   const [passengers, setPassengers] = useState<string>('1');
 
   const handleSearch = () => {
-    alert(`جستجوی بیمه: ${country}, ${duration}, ${passengers} مسافر`);
+    const params = new URLSearchParams({
+      country,
+      duration,
+      passengers,
+    });
+    navigate(`/insurance/results?${params.toString()}`);
   };
 
   return (
