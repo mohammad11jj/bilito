@@ -12,6 +12,7 @@ import { TripsPage } from '../../features/user/pages/TripsPage';
 import { TicketsPage } from '../../features/user/pages/TicketsPage';
 import { WalletPage } from '../../features/user/pages/WalletPage';
 import { ContactPage } from '../../features/contact/pages/ContactPage';
+import { AboutPage } from '../../features/contact/pages/AboutPage';
 
 function NotFoundPage() {
   return (
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
       // 404
       { path: '*', element: <NotFoundPage /> },
       { path: '/contact', element: <ContactPage /> },
+      { path: '/about', element: <AboutPage /> },
     ],
   },
 ]);
