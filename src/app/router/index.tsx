@@ -14,6 +14,7 @@ import { WalletPage } from '../../features/user/pages/WalletPage';
 import { ContactPage } from '../../features/contact/pages/ContactPage';
 import { AboutPage } from '../../features/contact/pages/AboutPage';
 import { NotFoundPage } from '../../features/contact/pages/NotFoundPage';
+import { GuidePage } from '../../features/contact/pages/GuidePage';
 
 
 export const router = createBrowserRouter([
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
       { path: '/contact', element: <ContactPage /> },
       { path: '/about', element: <AboutPage /> },
+      { path: '/guide', element: <GuidePage /> },
     ],
   },
 ]);
