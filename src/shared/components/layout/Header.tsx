@@ -4,6 +4,8 @@ import { Menu, Phone, User, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Container } from './Container';
 import { MobileMenu } from './MobileMenu';
+import { LoginModal } from '../../../features/auth/components/LoginModal';
+import { useAuthStore } from '../../../features/auth/store/authStore';
 import { cn } from '../../utils/cn';
 
 const mainNavItems = [
@@ -14,6 +16,8 @@ const mainNavItems = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isLoggedIn, user } = useAuthStore();
 
   return (
     <>
@@ -70,7 +74,7 @@ export function Header() {
               </button>
             </nav>
 
-            {/* Left: Support + Profile */}
+            {/* Left: Support + Profile/Login */}
             <div className="hidden lg:flex items-center gap-4 shrink-0">
               <a
                 href="tel:0214045"
@@ -80,16 +84,34 @@ export function Header() {
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
 
-              {/* Profile Button (شبیه‌سازی لاگین) */}
-              <Link to="/profile">
+              {/* Conditional: Logged in OR Login button */}
+              {isLoggedIn && user ? (
+                <Link to="/profile">
+                  <button
+                    type="button"
+                    className={cn(
+                      'flex items-center gap-2 px-3 py-2 rounded-md',
+                      'bg-tint-1 text-primary border border-tint-3',
+                      'text-sm font-medium',
+                      'hover:bg-tint-2 transition-colors',
+                      'focus:outline-none focus:ring-2 focus:ring-primary/40',
+                    )}
+                  >
+                    <User className="w-4 h-4" />
+                    <span>{user.firstName || 'کاربر'}</span>
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                </Link>
+              ) : (
                 <Button
                   leftIcon={<User className="w-4 h-4" />}
                   variant="primary"
                   size="sm"
+                  onClick={() => setIsLoginModalOpen(true)}
                 >
                   ورود/ثبت نام
                 </Button>
-              </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -105,9 +127,20 @@ export function Header() {
         </Container>
       </header>
 
+      {/* Mobile Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        onLoginClick={() => {
+          setIsMobileMenuOpen(false);
+          setIsLoginModalOpen(true);
+        }}
+      />
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
       />
     </>
   );

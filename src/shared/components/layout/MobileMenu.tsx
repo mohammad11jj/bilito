@@ -1,7 +1,18 @@
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
-import { X, Home, Shield, Plane, Phone, User, Info, Ticket, Wallet } from 'lucide-react';
+import {
+  X,
+  Home,
+  Shield,
+  Plane,
+  Phone,
+  User,
+  Info,
+  Ticket,
+  Wallet,
+} from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useAuthStore } from '../../../features/auth/store/authStore';
 import { cn } from '../../utils/cn';
 
 const mobileNavItems = [
@@ -17,9 +28,16 @@ const mobileNavItems = [
 type MobileMenuProps = {
   isOpen: boolean;
   onClose: () => void;
+  onLoginClick?: () => void;
 };
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({
+  isOpen,
+  onClose,
+  onLoginClick,
+}: MobileMenuProps) {
+  const { isLoggedIn, user } = useAuthStore();
+
   useEffect(() => {
     if (isOpen) {
       const original = document.body.style.overflow;
@@ -38,6 +56,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
+
+  const handleLoginButtonClick = () => {
+    onClose();
+    onLoginClick?.();
+  };
 
   return (
     <>
@@ -116,7 +139,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           })}
         </nav>
 
-        {/* Footer: Support + Profile */}
+        {/* Footer: Support + Login */}
         <div className="p-4 border-t border-gray-2 space-y-3 shrink-0">
           <a
             href="tel:0214045"
@@ -126,11 +149,25 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <span dir="ltr">۰۲۱-۴۰۴۵</span>
           </a>
 
-          <Link to="/profile" onClick={onClose} className="block">
-            <Button leftIcon={<User className="w-4 h-4" />} fullWidth>
+          {isLoggedIn && user ? (
+            <Link to="/profile" onClick={onClose} className="block">
+              <Button
+                leftIcon={<User className="w-4 h-4" />}
+                variant="secondary"
+                fullWidth
+              >
+                {user.firstName || 'پنل کاربری'}
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              leftIcon={<User className="w-4 h-4" />}
+              fullWidth
+              onClick={handleLoginButtonClick}
+            >
               ورود / ثبت‌نام
             </Button>
-          </Link>
+          )}
         </div>
       </aside>
     </>
