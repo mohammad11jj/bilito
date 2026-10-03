@@ -1,54 +1,66 @@
+import { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router';
 import { MainLayout } from '../../shared/components/layout/MainLayout';
-import { HomePage } from '../../features/home/pages/HomePage';
-import { SearchResultsPage } from '../../features/flights/pages/SearchResultsPage';
-import { InsurancePage } from '../../features/insurance/pages/InsurancePage';
-import { InsuranceResultsPage } from '../../features/insurance/pages/InsuranceResultsPage';
-import { InsuranceBookingPage } from '../../features/insurance/pages/InsuranceBookingPage';
-import { UserLayout } from '../../features/user/components/UserLayout';
-import { ProfilePage } from '../../features/user/pages/ProfilePage';
-import { ProfileEditPage } from '../../features/user/pages/ProfileEditPage';
-import { TripsPage } from '../../features/user/pages/TripsPage';
-import { TicketsPage } from '../../features/user/pages/TicketsPage';
-import { WalletPage } from '../../features/user/pages/WalletPage';
-import { ContactPage } from '../../features/contact/pages/ContactPage';
-import { AboutPage } from '../../features/contact/pages/AboutPage';
-import { NotFoundPage } from '../../features/contact/pages/NotFoundPage';
-import { GuidePage } from '../../features/contact/pages/GuidePage';
+import { PageLoader } from './PageLoader';
+import {
+  HomePage,
+  SearchResultsPage,
+  InsurancePage,
+  InsuranceResultsPage,
+  InsuranceBookingPage,
+  UserLayout,
+  ProfilePage,
+  ProfileEditPage,
+  TripsPage,
+  TicketsPage,
+  WalletPage,
+  ContactPage,
+  AboutPage,
+  GuidePage,
+  NotFoundPage,
+} from './lazyPages';
 
+// Helper: wrap element with Suspense
+const withSuspense = (Component: React.ComponentType) => (
+  <Suspense fallback={<PageLoader />}>
+    <Component />
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
       // Home
-      { path: '/', element: <HomePage /> },
+      { path: '/', element: withSuspense(HomePage) },
 
       // Flights
-      { path: '/flights/search', element: <SearchResultsPage /> },
+      { path: '/flights/search', element: withSuspense(SearchResultsPage) },
 
       // Insurance
-      { path: '/insurance', element: <InsurancePage /> },
-      { path: '/insurance/results', element: <InsuranceResultsPage /> },
-      { path: '/insurance/booking', element: <InsuranceBookingPage /> },
+      { path: '/insurance', element: withSuspense(InsurancePage) },
+      { path: '/insurance/results', element: withSuspense(InsuranceResultsPage) },
+      { path: '/insurance/booking', element: withSuspense(InsuranceBookingPage) },
 
-      // User Panel (Nested inside MainLayout)
+      // User Panel (Nested)
       {
-        element: <UserLayout />,
+        element: withSuspense(UserLayout),
         children: [
-          { path: '/profile', element: <ProfilePage /> },
-          { path: '/profile/edit', element: <ProfileEditPage /> },
-          { path: '/trips', element: <TripsPage /> },
-          { path: '/tickets', element: <TicketsPage /> },
-          { path: '/wallet', element: <WalletPage /> },
+          { path: '/profile', element: withSuspense(ProfilePage) },
+          { path: '/profile/edit', element: withSuspense(ProfileEditPage) },
+          { path: '/trips', element: withSuspense(TripsPage) },
+          { path: '/tickets', element: withSuspense(TicketsPage) },
+          { path: '/wallet', element: withSuspense(WalletPage) },
         ],
       },
 
+      // Static Pages
+      { path: '/contact', element: withSuspense(ContactPage) },
+      { path: '/about', element: withSuspense(AboutPage) },
+      { path: '/guide', element: withSuspense(GuidePage) },
+
       // 404
-      { path: '*', element: <NotFoundPage /> },
-      { path: '/contact', element: <ContactPage /> },
-      { path: '/about', element: <AboutPage /> },
-      { path: '/guide', element: <GuidePage /> },
+      { path: '*', element: withSuspense(NotFoundPage) },
     ],
   },
 ]);
