@@ -14,6 +14,7 @@ import {
 import { Button } from '../ui/Button';
 import { Container } from './Container';
 import { MobileMenu } from './MobileMenu';
+import { UserDropdown } from './UserDropdown';
 import { LoginModal } from '../../../features/auth/components/LoginModal';
 import { useAuthStore } from '../../../features/auth/store/authStore';
 import { useThemeStore } from '../../store/themeStore';
@@ -40,7 +41,6 @@ export function Header() {
   const { isLoggedIn, user } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
 
-  // بستن dropdown با کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
@@ -54,7 +54,6 @@ export function Header() {
     }
   }, [isMoreOpen]);
 
-  // بستن با Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsMoreOpen(false);
@@ -114,7 +113,6 @@ export function Header() {
                 </NavLink>
               ))}
 
-              {/* سایر موارد - Dropdown */}
               <div className="relative" ref={moreRef}>
                 <button
                   type="button"
@@ -125,8 +123,6 @@ export function Header() {
                       ? 'text-primary'
                       : 'text-gray-7 hover:text-primary',
                   )}
-                  aria-expanded={isMoreOpen}
-                  aria-haspopup="menu"
                 >
                   سایر موارد
                   <ChevronDown
@@ -144,7 +140,6 @@ export function Header() {
                       'w-56 bg-white rounded-md border border-gray-2',
                       'shadow-drop-4 py-2',
                     )}
-                    role="menu"
                   >
                     {moreNavItems.map((item) => {
                       const Icon = item.icon;
@@ -162,7 +157,6 @@ export function Header() {
                                 : 'text-gray-7 hover:bg-gray-1 hover:text-primary',
                             )
                           }
-                          role="menuitem"
                         >
                           <Icon className="w-4 h-4 shrink-0" />
                           <span>{item.label}</span>
@@ -174,7 +168,7 @@ export function Header() {
               </div>
             </nav>
 
-            {/* Left: Support + Theme Toggle + Profile/Login */}
+            {/* Left: Support + Theme + Profile/Login */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               <a
                 href="tel:0214045"
@@ -184,7 +178,6 @@ export function Header() {
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
 
-              {/* Theme Toggle */}
               <button
                 type="button"
                 onClick={toggleTheme}
@@ -203,22 +196,7 @@ export function Header() {
               </button>
 
               {isLoggedIn && user ? (
-                <Link to="/profile">
-                  <button
-                    type="button"
-                    className={cn(
-                      'flex items-center gap-2 px-3 py-2 rounded-md',
-                      'bg-tint-1 text-primary border border-tint-3',
-                      'text-sm font-medium',
-                      'hover:bg-tint-2 transition-colors',
-                      'focus:outline-none focus:ring-2 focus:ring-primary/40',
-                    )}
-                  >
-                    <User className="w-4 h-4" />
-                    <span>{user.firstName || 'کاربر'}</span>
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </button>
-                </Link>
+                <UserDropdown />
               ) : (
                 <Button
                   leftIcon={<User className="w-4 h-4" />}
@@ -231,7 +209,6 @@ export function Header() {
               )}
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
@@ -244,7 +221,6 @@ export function Header() {
         </Container>
       </header>
 
-      {/* Mobile Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
@@ -254,7 +230,6 @@ export function Header() {
         }}
       />
 
-      {/* Login Modal */}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

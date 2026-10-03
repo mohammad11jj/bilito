@@ -7,6 +7,7 @@ import { FlightCard, type FlightCardData } from '../components/FlightCard';
 import { SortDropdown, type SortOption } from '../components/SortDropdown';
 import { FlightInfoModal } from '../components/FlightInfoModal';
 import { initialFilters, type FlightFilters } from '../types';
+import { toast } from '../../../shared/store/toastStore';
 
 // ===== داده‌های نمونه =====
 const mockFlights: (FlightCardData & { airlineId: string })[] = [
@@ -101,7 +102,6 @@ export function SearchResultsPage() {
   // ===== اعمال فیلترها =====
   const filteredFlights = useMemo(() => {
     return mockFlights.filter((flight) => {
-      // قیمت
       if (
         flight.price < filters.price.min ||
         flight.price > filters.price.max
@@ -109,7 +109,6 @@ export function SearchResultsPage() {
         return false;
       }
 
-      // ایرلاین
       if (
         filters.airlines.length > 0 &&
         !filters.airlines.includes(flight.airlineId)
@@ -117,12 +116,10 @@ export function SearchResultsPage() {
         return false;
       }
 
-      // توقف
       if (filters.stops === 'direct' && flight.stops !== 0) return false;
       if (filters.stops === 'one' && flight.stops !== 1) return false;
       if (filters.stops === 'two+' && flight.stops < 2) return false;
 
-      // فرودگاه
       if (
         filters.airports.length > 0 &&
         !filters.airports.includes(flight.departure.code) &&
@@ -162,12 +159,13 @@ export function SearchResultsPage() {
         returnDate={searchParams.returnDate}
         passengers={searchParams.passengers}
         flightClass={searchParams.flightClass}
-        onEdit={() => alert('برگشت به فرم جستجو')}
+        onEdit={() =>
+          toast.info('برای ویرایش، به صفحه اصلی برگردید', 'ویرایش جستجو')
+        }
       />
 
       <Container className="py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
-          {/* Sidebar */}
           <aside className="lg:order-1 min-w-0">
             <div className="lg:sticky lg:top-20">
               <FilterSidebar
@@ -179,9 +177,7 @@ export function SearchResultsPage() {
             </div>
           </aside>
 
-          {/* Main */}
           <main className="lg:order-2 space-y-4 min-w-0">
-            {/* Calendar + Sort */}
             <div className="flex items-start gap-3">
               <div className="flex-1 min-w-0">
                 <PriceCalendar
@@ -191,11 +187,12 @@ export function SearchResultsPage() {
               <SortDropdown
                 value={sortBy}
                 onChange={setSortBy}
-                onFilterClick={() => alert('باز کردن فیلتر (موبایل)')}
+                onFilterClick={() =>
+                  toast.info('برای دیدن فیلترها، از سایدبار استفاده کنید', 'فیلترها')
+                }
               />
             </div>
 
-            {/* Flights List */}
             {sortedFlights.length > 0 ? (
               <div className="space-y-3">
                 {sortedFlights.map((flight) => (
@@ -217,7 +214,6 @@ export function SearchResultsPage() {
         </div>
       </Container>
 
-      {/* Flight Info Modal */}
       <FlightInfoModal
         isOpen={!!selectedFlight}
         onClose={() => setSelectedFlight(null)}
@@ -225,6 +221,7 @@ export function SearchResultsPage() {
         onContinue={(id) => {
           console.log('Continue with flight:', id);
           setSelectedFlight(null);
+          toast.info('ادامه فرآیند خرید (بزودی)', 'اطلاع');
         }}
       />
     </div>

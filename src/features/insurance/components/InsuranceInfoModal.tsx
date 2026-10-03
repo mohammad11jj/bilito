@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router';
 import { Modal } from '../../../shared/components/ui/Modal';
 import { Tabs, type Tab } from '../../../shared/components/ui/Tabs';
 import { Button } from '../../../shared/components/ui/Button';
+import { toast } from '../../../shared/store/toastStore';
 import type { InsurancePlan } from '../types';
 
 type InsuranceInfoModalProps = {
@@ -24,6 +25,7 @@ export function InsuranceInfoModal({
   const handleContinue = () => {
     onContinue?.(plan.id);
     onClose();
+    toast.info('در حال انتقال به صفحه خرید...', 'اطلاع');
     navigate('/insurance/booking');
   };
 
@@ -59,9 +61,7 @@ export function InsuranceInfoModal({
       label: 'پوشش خدمات',
       content: (
         <div className="space-y-3 text-sm text-gray-7 leading-7">
-          <p className="font-bold text-gray-8 mb-3">
-            پوشش‌های این بیمه‌نامه:
-          </p>
+          <p className="font-bold text-gray-8 mb-3">پوشش‌های این بیمه‌نامه:</p>
           <ul className="list-disc pr-5 space-y-2">
             {plan.features.map((feature, idx) => (
               <li key={idx}>{feature}</li>
@@ -75,9 +75,7 @@ export function InsuranceInfoModal({
       label: 'قوانین استرداد',
       content: (
         <div className="space-y-4 text-sm text-gray-7 leading-7">
-          <p>
-            در صورت عدم استفاده تا ۶ ماه بعد از صدور با شرایط زیر:
-          </p>
+          <p>در صورت عدم استفاده تا ۶ ماه بعد از صدور با شرایط زیر:</p>
           <h4 className="font-bold text-gray-8">بازگشت کامل وجه</h4>
           <ul className="list-disc pr-5 space-y-2">
             <li>در صورت پشیمان شدن از انجام سفر</li>
@@ -100,9 +98,7 @@ export function InsuranceInfoModal({
       footer={
         <div className="flex items-center justify-between w-full gap-4">
           <div className="text-start">
-            <span className="text-xs text-gray-5 block">
-              مجموع پرداختی شما
-            </span>
+            <span className="text-xs text-gray-5 block">مجموع پرداختی شما</span>
             <span className="text-base font-bold text-primary">
               {plan.price.toLocaleString('fa-IR')} تومان
             </span>

@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
 import { Container } from '../../../shared/components/layout/Container';
+import { toast } from '../../../shared/store/toastStore';
 
 const countries = [
   { value: 'turkey', label: 'ترکیه' },
@@ -39,14 +40,14 @@ export function InsuranceHero() {
   const [duration, setDuration] = useState<string>('');
   const [passengers, setPassengers] = useState<string>('1');
 
-  const handleSearch = () => {
-    const params = new URLSearchParams({
-      country,
-      duration,
-      passengers,
-    });
-    navigate(`/insurance/results?${params.toString()}`);
-  };
+const handleSearch = () => {
+  if (!country || !duration) {
+    toast.warning('لطفاً کشور مقصد و مدت سفر را انتخاب کنید', 'اطلاعات ناقص');
+    return;
+  }
+  const params = new URLSearchParams({ country, duration, passengers });
+  navigate(`/insurance/results?${params.toString()}`);
+};
 
   return (
     <section className="relative">

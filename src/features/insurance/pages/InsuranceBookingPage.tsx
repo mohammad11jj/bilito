@@ -7,6 +7,7 @@ import { Button } from '../../../shared/components/ui/Button';
 import { Input } from '../../../shared/components/ui/Input';
 import { Select } from '../../../shared/components/ui/Select';
 import { Alert } from '../../../shared/components/ui/Alert';
+import { toast } from '../../../shared/store/toastStore';
 
 const steps: Step[] = [
   { id: 1, label: 'انتخاب بیمه' },
@@ -64,13 +65,13 @@ export function InsuranceBookingPage() {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const handlePayment = () => {
-    // شبیه‌سازی پرداخت
-    setTimeout(() => {
-      setPaymentResult('success');
-      setCurrentStep(4);
-    }, 1000);
-  };
+const handlePayment = () => {
+  setTimeout(() => {
+    setPaymentResult('success');
+    setCurrentStep(4);
+    toast.success('بیمه‌نامه شما با موفقیت صادر شد', 'پرداخت موفق');
+  }, 1000);
+};
 
   const updatePassenger = (
     index: number,

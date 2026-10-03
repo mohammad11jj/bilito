@@ -5,6 +5,7 @@ import { Input } from '../../../shared/components/ui/Input';
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
 import { useAuthStore } from '../../auth/store/authStore';
+import { toast } from '../../../shared/store/toastStore';
 
 const genderOptions = [
   { value: 'male', label: 'مرد' },
@@ -36,7 +37,6 @@ export function ProfileEditPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     updateUser({
       firstName,
       lastName,
@@ -44,8 +44,7 @@ export function ProfileEditPage() {
       nationalId,
       phone,
     });
-
-    alert('اطلاعات با موفقیت ذخیره شد!');
+    toast.success('اطلاعات با موفقیت ذخیره شد', 'موفقیت');
     navigate('/profile');
   };
 
@@ -78,7 +77,6 @@ export function ProfileEditPage() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-
           <Input
             label="نام خانوادگی"
             placeholder="نام خانوادگی خود را وارد کنید"
@@ -86,7 +84,6 @@ export function ProfileEditPage() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-
           <Select
             label="جنسیت"
             placeholder="انتخاب کنید"
@@ -95,7 +92,6 @@ export function ProfileEditPage() {
             onChange={(e) => setGender(e.target.value)}
             required
           />
-
           <Input
             label="کد ملی"
             placeholder="کد ملی خود را وارد کنید"
@@ -103,7 +99,6 @@ export function ProfileEditPage() {
             onChange={(e) => setNationalId(e.target.value)}
             required
           />
-
           <Input
             label="شماره تماس"
             placeholder="۰۹۱۲۳۴۵۶۷۸۹"

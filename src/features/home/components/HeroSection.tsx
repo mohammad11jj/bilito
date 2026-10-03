@@ -12,6 +12,7 @@ import {
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
 import { Container } from '../../../shared/components/layout/Container';
+import { toast } from '../../../shared/store/toastStore';
 import { cn } from '../../../shared/utils/cn';
 
 type FlightType = 'international' | 'domestic';
@@ -56,6 +57,11 @@ export function HeroSection() {
   };
 
   const handleSearch = () => {
+    if (!origin || !destination) {
+      toast.warning('لطفاً مبدأ و مقصد را انتخاب کنید', 'اطلاعات ناقص');
+      return;
+    }
+
     const params = new URLSearchParams({
       origin,
       destination,
@@ -73,7 +79,6 @@ export function HeroSection() {
 
   return (
     <section className="relative">
-      {/* Background Image */}
       <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
         <img
           src="/hero.png"
@@ -83,10 +88,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30" />
       </div>
 
-      {/* Floating Search Card */}
       <Container>
         <div className="relative -mt-20 lg:-mt-24 bg-white rounded-xl shadow-card p-6 lg:p-8">
-          {/* Tabs */}
           <div className="flex items-center gap-2 border-b border-gray-2 mb-6">
             <TabButton
               isActive={flightType === 'international'}
@@ -102,7 +105,6 @@ export function HeroSection() {
             />
           </div>
 
-          {/* Trip Type Selector */}
           <div className="flex items-center gap-2 mb-6 flex-wrap">
             <TripTypeButton
               isActive={tripType === 'oneway'}
@@ -121,7 +123,6 @@ export function HeroSection() {
             />
           </div>
 
-          {/* Search Form */}
           <div
             className={cn(
               'grid grid-cols-1 md:grid-cols-2 gap-3 items-end',
@@ -175,10 +176,7 @@ export function HeroSection() {
               />
             )}
 
-            <PassengersDropdown
-              counts={passengers}
-              onChange={setPassengers}
-            />
+            <PassengersDropdown counts={passengers} onChange={setPassengers} />
 
             <Select
               label="کلاس"

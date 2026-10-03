@@ -24,6 +24,7 @@
 }
 
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
 /* ============================================
    Dark Mode Variant
