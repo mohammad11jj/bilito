@@ -8,12 +8,15 @@ import {
   Info,
   MessageSquare,
   BookOpen,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Container } from './Container';
 import { MobileMenu } from './MobileMenu';
 import { LoginModal } from '../../../features/auth/components/LoginModal';
 import { useAuthStore } from '../../../features/auth/store/authStore';
+import { useThemeStore } from '../../store/themeStore';
 import { cn } from '../../utils/cn';
 
 const mainNavItems = [
@@ -35,6 +38,7 @@ export function Header() {
 
   const moreRef = useRef<HTMLDivElement>(null);
   const { isLoggedIn, user } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
 
   // بستن dropdown با کلیک بیرون
   useEffect(() => {
@@ -133,7 +137,6 @@ export function Header() {
                   />
                 </button>
 
-                {/* Dropdown Menu */}
                 {isMoreOpen && (
                   <div
                     className={cn(
@@ -171,8 +174,8 @@ export function Header() {
               </div>
             </nav>
 
-            {/* Left: Support + Profile/Login */}
-            <div className="hidden lg:flex items-center gap-4 shrink-0">
+            {/* Left: Support + Theme Toggle + Profile/Login */}
+            <div className="hidden lg:flex items-center gap-3 shrink-0">
               <a
                 href="tel:0214045"
                 className="flex items-center gap-2 text-sm text-gray-7 hover:text-primary transition-colors"
@@ -180,6 +183,24 @@ export function Header() {
                 <Phone className="w-4 h-4" />
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
+
+              {/* Theme Toggle */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={cn(
+                  'w-9 h-9 rounded-md flex items-center justify-center',
+                  'text-gray-7 hover:bg-gray-1 transition-colors',
+                  'focus:outline-none focus:ring-2 focus:ring-primary/40',
+                )}
+                aria-label={theme === 'dark' ? 'حالت روشن' : 'حالت شب'}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </button>
 
               {isLoggedIn && user ? (
                 <Link to="/profile">

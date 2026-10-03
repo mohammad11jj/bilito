@@ -10,9 +10,12 @@ import {
   Info,
   Ticket,
   Wallet,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuthStore } from '../../../features/auth/store/authStore';
+import { useThemeStore } from '../../store/themeStore';
 import { cn } from '../../utils/cn';
 
 const mobileNavItems = [
@@ -37,6 +40,7 @@ export function MobileMenu({
   onLoginClick,
 }: MobileMenuProps) {
   const { isLoggedIn, user } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
 
   useEffect(() => {
     if (isOpen) {
@@ -137,6 +141,29 @@ export function MobileMenu({
               </NavLink>
             );
           })}
+
+          {/* Theme Toggle */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className={cn(
+              'w-full flex items-center gap-3 px-4 py-3 rounded-md',
+              'text-sm font-medium text-gray-7',
+              'hover:bg-gray-1 transition-colors',
+            )}
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-5 h-5 shrink-0" />
+                <span>حالت روشن</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-5 h-5 shrink-0" />
+                <span>حالت شب</span>
+              </>
+            )}
+          </button>
         </nav>
 
         {/* Footer: Support + Login */}
