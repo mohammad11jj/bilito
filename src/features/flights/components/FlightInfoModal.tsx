@@ -2,7 +2,6 @@ import { Plane, Luggage, Clock } from 'lucide-react';
 import { Modal } from '../../../shared/components/ui/Modal';
 import { Tabs, type Tab } from '../../../shared/components/ui/Tabs';
 import { Button } from '../../../shared/components/ui/Button';
-import { cn } from '../../../shared/utils/cn';
 import type { FlightCardData } from './FlightCard';
 
 type FlightInfoModalProps = {
@@ -18,7 +17,6 @@ export function FlightInfoModal({
   onClose,
   flight,
   onContinue,
-  className,
 }: FlightInfoModalProps) {
   if (!flight) return null;
 
@@ -53,7 +51,6 @@ export function FlightInfoModal({
       onClose={onClose}
       title="اطلاعات پرواز"
       size="lg"
-      className={className}
       footer={
         <div className="flex items-center justify-between w-full gap-4">
           <div className="text-start">

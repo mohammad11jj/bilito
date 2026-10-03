@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Shield, Check, X } from 'lucide-react';
 import { Container } from '../../../shared/components/layout/Container';
 import { Stepper, type Step } from '../../../shared/components/ui/Stepper';
 import { Button } from '../../../shared/components/ui/Button';
 import { Input } from '../../../shared/components/ui/Input';
 import { Select } from '../../../shared/components/ui/Select';
-import { Badge } from '../../../shared/components/ui/Badge';
 import { Alert } from '../../../shared/components/ui/Alert';
 
 const steps: Step[] = [
@@ -43,7 +42,6 @@ const emptyPassenger: Passenger = {
 };
 
 export function InsuranceBookingPage() {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState(1);

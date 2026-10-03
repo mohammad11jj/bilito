@@ -29,7 +29,6 @@ export function SortDropdown({
   onFilterClick,
   className,
 }: SortDropdownProps) {
-  const activeOption = sortOptions.find((opt) => opt.value === value);
 
   return (
     <div className={cn('flex items-center gap-2', className)}>

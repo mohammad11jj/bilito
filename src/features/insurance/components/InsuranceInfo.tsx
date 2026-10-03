@@ -1,5 +1,4 @@
 import { Container } from '../../../shared/components/layout/Container';
-import { cn } from '../../../shared/utils/cn';
 
 export function InsuranceInfo() {
   return (

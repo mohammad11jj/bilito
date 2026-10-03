@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Wallet, Plus, Check, AlertTriangle, X } from 'lucide-react';
 import { Input } from '../../../shared/components/ui/Input';
 import { Button } from '../../../shared/components/ui/Button';
-import { cn } from '../../../shared/utils/cn';
 
 type PaymentStatus = 'idle' | 'success' | 'failed';
 

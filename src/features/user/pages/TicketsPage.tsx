@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Search, SearchX } from 'lucide-react';
+import { SearchX } from 'lucide-react';
 import { EmptyState } from '../../../shared/components/ui/EmptyState';
 import { Button } from '../../../shared/components/ui/Button';
 import { TicketCard, type Ticket } from '../components/TicketCard';
