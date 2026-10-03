@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 import {
   Plane,
   ArrowLeftRight,
-  Calendar,
   Users,
   Minus,
   Plus,
@@ -12,6 +11,7 @@ import {
 import { Select } from '../../../shared/components/ui/Select';
 import { Button } from '../../../shared/components/ui/Button';
 import { Container } from '../../../shared/components/layout/Container';
+import { DatePickerField } from '../../../shared/components/ui/DatePicker';
 import { toast } from '../../../shared/store/toastStore';
 import { cn } from '../../../shared/utils/cn';
 
@@ -59,6 +59,11 @@ export function HeroSection() {
   const handleSearch = () => {
     if (!origin || !destination) {
       toast.warning('لطفاً مبدأ و مقصد را انتخاب کنید', 'اطلاعات ناقص');
+      return;
+    }
+
+    if (!departDate) {
+      toast.warning('لطفاً تاریخ رفت را انتخاب کنید', 'اطلاعات ناقص');
       return;
     }
 
@@ -162,17 +167,19 @@ export function HeroSection() {
               onChange={(e) => setDestination(e.target.value)}
             />
 
-            <DateField
+            <DatePickerField
               label="تاریخ رفت"
               value={departDate}
               onChange={setDepartDate}
+              placeholder="انتخاب تاریخ"
             />
 
             {showReturnDate && (
-              <DateField
+              <DatePickerField
                 label="برگشت"
                 value={returnDate}
                 onChange={setReturnDate}
+                placeholder="انتخاب تاریخ"
               />
             )}
 
@@ -250,39 +257,6 @@ function TripTypeButton({ isActive, onClick, label }: TripTypeButtonProps) {
     >
       {label}
     </button>
-  );
-}
-
-// ===== Date Field =====
-type DateFieldProps = {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-};
-
-function DateField({ label, value, onChange }: DateFieldProps) {
-  return (
-    <div className="w-full">
-      <label className="block text-sm font-medium text-gray-7 mb-2 text-start truncate">
-        {label}
-      </label>
-      <div className="relative">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="انتخاب تاریخ"
-          className={cn(
-            'w-full h-10 rounded-md border bg-white text-sm text-start',
-            'px-3 pl-9',
-            'placeholder:text-gray-5',
-            'transition-colors duration-200',
-            'border-gray-3 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none',
-          )}
-        />
-        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-5 pointer-events-none" />
-      </div>
-    </div>
   );
 }
 
