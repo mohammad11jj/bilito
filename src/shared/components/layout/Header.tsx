@@ -1,6 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
-import { Menu, Phone, User, ChevronDown } from 'lucide-react';
+import {
+  Menu,
+  Phone,
+  User,
+  ChevronDown,
+  Info,
+  MessageSquare,
+  BookOpen,
+} from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Container } from './Container';
 import { MobileMenu } from './MobileMenu';
@@ -14,10 +22,44 @@ const mainNavItems = [
   { label: 'سفرهای من', href: '/trips' },
 ];
 
+const moreNavItems = [
+  { label: 'درباره ما', href: '/about', icon: Info },
+  { label: 'تماس با ما', href: '/contact', icon: MessageSquare },
+  { label: 'راهنمای خرید بلیط', href: '/guide', icon: BookOpen },
+];
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+
+  const moreRef = useRef<HTMLDivElement>(null);
   const { isLoggedIn, user } = useAuthStore();
+
+  // بستن dropdown با کلیک بیرون
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setIsMoreOpen(false);
+      }
+    };
+    if (isMoreOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isMoreOpen]);
+
+  // بستن با Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMoreOpen(false);
+    };
+    if (isMoreOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isMoreOpen]);
 
   return (
     <>
@@ -68,10 +110,65 @@ export function Header() {
                 </NavLink>
               ))}
 
-              <button className="flex items-center gap-1 text-sm font-medium text-gray-7 hover:text-primary transition-colors py-5">
-                سایر موارد
-                <ChevronDown className="w-4 h-4" />
-              </button>
+              {/* سایر موارد - Dropdown */}
+              <div className="relative" ref={moreRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsMoreOpen((v) => !v)}
+                  className={cn(
+                    'flex items-center gap-1 text-sm font-medium transition-colors py-5',
+                    isMoreOpen
+                      ? 'text-primary'
+                      : 'text-gray-7 hover:text-primary',
+                  )}
+                  aria-expanded={isMoreOpen}
+                  aria-haspopup="menu"
+                >
+                  سایر موارد
+                  <ChevronDown
+                    className={cn(
+                      'w-4 h-4 transition-transform duration-200',
+                      isMoreOpen && 'rotate-180',
+                    )}
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isMoreOpen && (
+                  <div
+                    className={cn(
+                      'absolute top-full right-0 mt-1 z-50',
+                      'w-56 bg-white rounded-md border border-gray-2',
+                      'shadow-drop-4 py-2',
+                    )}
+                    role="menu"
+                  >
+                    {moreNavItems.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <NavLink
+                          key={item.href}
+                          to={item.href}
+                          onClick={() => setIsMoreOpen(false)}
+                          className={({ isActive }) =>
+                            cn(
+                              'flex items-center gap-3 px-4 py-2.5',
+                              'text-sm transition-colors',
+                              isActive
+                                ? 'bg-tint-1 text-primary'
+                                : 'text-gray-7 hover:bg-gray-1 hover:text-primary',
+                            )
+                          }
+                          role="menuitem"
+                        >
+                          <Icon className="w-4 h-4 shrink-0" />
+                          <span>{item.label}</span>
+                        </NavLink>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </nav>
 
             {/* Left: Support + Profile/Login */}
@@ -84,7 +181,6 @@ export function Header() {
                 <span dir="ltr">۰۲۱-۴۰۴۵</span>
               </a>
 
-              {/* Conditional: Logged in OR Login button */}
               {isLoggedIn && user ? (
                 <Link to="/profile">
                   <button
