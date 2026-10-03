@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 import {
   User as UserIcon,
@@ -8,18 +9,8 @@ import {
   Camera,
 } from 'lucide-react';
 import { cn } from '../../../shared/utils/cn';
-import type { User } from '../types';
-import { useState } from 'react';
-
-const mockUser: User = {
-  id: '1',
-  firstName: 'شیوا',
-  lastName: 'ارغوان',
-  avatar: '/avatars/user.png',
-  phone: '۰۹۱۸ ۵۹۲ ۳۰۳۴',
-  gender: 'female',
-  nationalId: '۳۰۸۹۲۵۸۱۷۸۲',
-};
+import { useAuthStore } from '../../auth/store/authStore';
+import type { User } from '../../auth/types';
 
 const menuItems = [
   {
@@ -34,19 +25,26 @@ const menuItems = [
 ];
 
 type UserSidebarProps = {
-  user?: User;
   className?: string;
 };
 
-export function UserSidebar({ user = mockUser, className }: UserSidebarProps) {
+export function UserSidebar({ className }: UserSidebarProps) {
   const navigate = useNavigate();
+  const { user, logout } = useAuthStore();
   const [imageError, setImageError] = useState(false);
 
   const handleLogout = () => {
     if (confirm('از حساب کاربری خارج می‌شوید؟')) {
+      logout();
       navigate('/');
     }
   };
+
+  // اگه کاربر لاگین نیست (احتمالاً از پنل خارج شده)، برگردون به Home
+  if (!user) {
+    navigate('/');
+    return null;
+  }
 
   const showImage = user.avatar && !imageError;
 
