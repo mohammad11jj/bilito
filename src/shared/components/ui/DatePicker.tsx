@@ -203,7 +203,7 @@ export function DatePickerField({
           className={cn(
             'absolute top-full mt-2 right-0 z-50',
             'bg-white rounded-md border border-gray-2 shadow-drop-4',
-            'p-4 w-[280px]',
+            'p-4 w-70',
           )}
           dir="rtl"
         >

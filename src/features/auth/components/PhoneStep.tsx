@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Shield } from 'lucide-react';
 import { Input } from '../../../shared/components/ui/Input';
 import { Button } from '../../../shared/components/ui/Button';
 import { cn } from '../../../shared/utils/cn';

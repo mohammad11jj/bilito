@@ -84,13 +84,13 @@ export function HeroSection() {
 
   return (
     <section className="relative">
-      <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+      <div className="relative h-100 lg:h-125 overflow-hidden">
         <img
           src="/hero.png"
           alt="پرواز"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/0 via-black/10 to-black/30" />
       </div>
 
       <Container>
@@ -195,7 +195,7 @@ export function HeroSection() {
             <Button
               onClick={handleSearch}
               leftIcon={<Search className="w-5 h-5" />}
-              className="h-10 px-6 lg:min-w-[120px] w-full"
+              className="h-10 px-6 lg:min-w-30 w-full"
             >
               جستجو
             </Button>
@@ -324,7 +324,7 @@ function PassengersDropdown({ counts, onChange }: PassengersDropdownProps) {
       {isOpen && (
         <div
           className={cn(
-            'absolute top-full mt-2 right-0 z-30 min-w-[260px]',
+            'absolute top-full mt-2 right-0 z-30 min-w-65',
             'bg-white border border-gray-3 rounded-md shadow-drop-4',
             'p-4 space-y-4',
           )}

@@ -3,7 +3,6 @@ import { Wallet, Plus } from 'lucide-react';
 import { Input } from '../../../shared/components/ui/Input';
 import { Button } from '../../../shared/components/ui/Button';
 import { toast } from '../../../shared/store/toastStore';
-import { cn } from '../../../shared/utils/cn';
 
 export function WalletPage() {
   const [balance, setBalance] = useState(0);
