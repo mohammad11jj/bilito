@@ -27,9 +27,22 @@ export function ProfilePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
           <InfoField
             label="نام و نام خانوادگی"
-            value={`${user.firstName || ''} ${user.lastName || ''}`.trim() || '—'}
+            value={
+              `${user.firstName || ''} ${user.lastName || ''}`.trim() || '—'
+            }
           />
-          <InfoField label="شماره تماس" value={user.phone} />
+          <InfoField
+            label="جنسیت"
+            value={
+              user.gender === 'male'
+                ? 'مرد'
+                : user.gender === 'female'
+                  ? 'زن'
+                  : '—'
+            }
+          />
+          <InfoField label="کد ملی" value={user.nationalId || '—'} />
+          <InfoField label="شماره تماس" value={user.phone || '—'} />
         </div>
       </div>
     </div>

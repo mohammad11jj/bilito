@@ -45,41 +45,40 @@ export function LoginModal({ isOpen, onClose, redirectTo }: LoginModalProps) {
     }, 1000);
   };
 
-  const handleOtpSubmit = async (code: string) => {
-    setIsLoading(true);
-    setError("");
+const handleOtpSubmit = async (code: string) => {
+  setIsLoading(true);
+  setError('');
 
-    // شبیه‌سازی تایید کد
-    setTimeout(() => {
-      // کد صحیح (mock): 12345
-      if (code === "12345") {
-        const mockUser: User = {
-          id: "1",
-          phone,
-          firstName: "شیوا",
-          lastName: "ارغوان",
-          avatar: "/avatars/user.png",
-        };
-        const mockToken = "mock-jwt-token-" + Date.now();
+  setTimeout(() => {
+    if (code === '12345') {
+      const mockUser: User = {
+        id: '1',
+        phone,
+        firstName: 'شیوا',
+        lastName: 'ارغوان',
+        avatar: '/avatars/user.png',
+        gender: 'female',
+        nationalId: '۳۰۸۹۲۵۸۱۷۸۲',
+      };
+      const mockToken = 'mock-jwt-token-' + Date.now();
 
-        login(mockUser, mockToken);
-        setStep("success");
+      login(mockUser, mockToken);
+      setStep('success');
 
-        // بستن مودال و انتقال
-        setTimeout(() => {
-          onClose();
-          if (redirectTo) {
-            navigate(redirectTo);
-          } else {
-            navigate("/profile");
-          }
-        }, 800);
-      } else {
-        setError("کد تایید نادرست می‌باشد!");
-        setIsLoading(false);
-      }
-    }, 1000);
-  };
+      setTimeout(() => {
+        onClose();
+        if (redirectTo) {
+          navigate(redirectTo);
+        } else {
+          navigate('/profile');
+        }
+      }, 800);
+    } else {
+      setError('کد تایید نادرست می‌باشد!');
+      setIsLoading(false);
+    }
+  }, 1000);
+};
 
   const handleEditPhone = () => {
     setStep("phone");

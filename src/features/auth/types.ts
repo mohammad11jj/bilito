@@ -4,6 +4,8 @@ export type User = {
   firstName?: string;
   lastName?: string;
   avatar?: string;
+  gender?: 'male' | 'female';
+  nationalId?: string;
 };
 
 export type AuthStep = 'phone' | 'otp' | 'success';
