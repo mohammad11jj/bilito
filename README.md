@@ -17,6 +17,7 @@
 ## ✨ Features
 
 ### ✈️ Flight Section
+
 - Flight search (international and domestic)
 - Trip type selection (one-way, round-trip, multi-city)
 - Advanced filters (price, time, airline, stops, airport)
@@ -26,12 +27,14 @@
 - Search history
 
 ### 🛡️ Insurance Section
+
 - Travel insurance search
 - Multiple insurance plans
 - Coverage comparison
 - Multi-step purchase flow
 
 ### 👤 User Panel
+
 - Account information
 - Profile editing
 - My trips (with full details)
@@ -39,6 +42,7 @@
 - Wallet and balance recharge
 
 ### 🎨 Auxiliary Pages
+
 - Contact Us (form + map)
 - About Us
 - Booking Guide (6 steps)
@@ -47,26 +51,33 @@
 ## 🖼️ Screenshots
 
 ### Home Page
+
 ![Home](./docs/screenshots/home.png)
 
 ### Search Results
+
 ![Search Results](./docs/screenshots/search-results.png)
 
 ### Flight Info Modal
+
 ![Flight Modal](./docs/screenshots/flight-modal.png)
 
 ### Travel Insurance
+
 ![Insurance](./docs/screenshots/insurance.png)
 
 ### User Panel
+
 ![Profile](./docs/screenshots/profile.png)
 
 ### Contact Us
+
 ![Contact](./docs/screenshots/contact.png)
 
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** — UI Library
 - **TypeScript 5** — Static typing
 - **Vite 8** — Blazing fast build tool
@@ -74,28 +85,34 @@
 - **React Router 8** — Routing
 
 ### State Management & Data
+
 - **TanStack Query (React Query)** — API calls management
 - **Zustand** — Global state management
 
 ### Forms & Validation
+
 - **React Hook Form** — Form management
 - **Zod** — Validation
 
 ### UI & Icons
+
 - **Lucide React** — Icons
 - **React Icons** — Social media icons
 - **clsx** — Conditional class management
 
 ### Development Tools
+
 - **MSW (Mock Service Worker)** — API mocking
 - **ESLint** — Linting
 
 ### Persian Utilities
+
 - **jalaali-js** — Jalali/Gregorian date conversion
 - **IRANSansX** — Persian font
 
 ## 📁 Project Structure
 
+```
 bilito/
 ├── public/
 │ ├── fonts/ # IRANSansX font
@@ -135,12 +152,12 @@ bilito/
 ├── tsconfig.json
 ├── vite.config.ts
 └── vercel.json # Deploy configuration
-
-
+```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js version 20 or higher
 - npm or yarn
 
@@ -211,3 +228,4 @@ GitHub: @mohammad11jj
 This project was built as a portfolio piece and is free to use for educational purposes.
 
 ⭐ If you found this project useful, please give it a star!
+```
