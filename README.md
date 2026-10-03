@@ -180,6 +180,7 @@ Build for Production
 
 npm run build
 npm run preview
+```
 
 🎨 Design System
 The project features a custom Design System based on a Figma file:
@@ -228,4 +229,4 @@ GitHub: @mohammad11jj
 This project was built as a portfolio piece and is free to use for educational purposes.
 
 ⭐ If you found this project useful, please give it a star!
-```
+
